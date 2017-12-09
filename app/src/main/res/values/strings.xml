@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Kointlin</string>
+    <string name="app_name">            Kointlin</string>
+
+    <!--NEW ASSET-->
+    <string name="new_asset_hint">      Please select one of the following assets</string>
+    <string name="new_asset_amount">    Amount</string>
+    <string name="new_asset_save">      Save</string>
 </resources>

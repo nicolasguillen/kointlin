@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/account_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activities.AccountActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/account_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:indeterminate="true"/>
+
+        <TextView
+            android:id="@+id/account_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:gravity="center_horizontal"/>
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/account_add_new"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        app:fabSize="normal"
+        android:layout_margin="16dp"
+        app:srcCompat="@android:drawable/ic_menu_add" />
+
+</android.support.design.widget.CoordinatorLayout>

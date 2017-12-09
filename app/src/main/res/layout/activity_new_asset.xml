@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/new_asset_save"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <ProgressBar
+                android:id="@+id/new_asset_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:indeterminate="true"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/new_asset_hint"/>
+
+            <Spinner
+                android:id="@+id/new_asset_selection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/new_asset_amount_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/new_asset_amount">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/new_asset_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/new_asset_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        style="@style/Base.Widget.AppCompat.Button.Colored"
+        android:text="@string/new_asset_save" />
+
+</RelativeLayout>
