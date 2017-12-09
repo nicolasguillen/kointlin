@@ -42,6 +42,7 @@ class NewAssetViewModel(private val apiRepository: ApiRepository,
                 .map { it.mapNotNull { it.name }.sorted() }
                 .subscribe { allSupportedCoins.onNext(it) }
 
+
         save
                 .withLatestFrom(coinSelected, amount) { _, x, y -> NewAssetData(x, y) }
                 .map { Asset(it.coin, it.coin, it.amount.toDouble()) }
