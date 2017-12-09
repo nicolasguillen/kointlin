@@ -11,8 +11,6 @@ class AccountViewModel(private val apiRepository: ApiRepository,
 
     //INPUTS
     private val viewDidLoad = PublishProcessor.create<Unit>()
-    private val insert = PublishProcessor.create<Unit>()
-    private val remove = PublishProcessor.create<Unit>()
 
     //OUTPUTS
     private val totalAmount = PublishProcessor.create<Double>()
@@ -27,23 +25,13 @@ class AccountViewModel(private val apiRepository: ApiRepository,
                 .subscribe {
                     totalAmount.onNext(it.fold(0.0, { acc, asset -> acc + asset.amount }))
                 }
-
-        insert.subscribe { walletRepository.insertAsset(Asset("BTC", "Bitcoin", 5000.0)) }
-
-        remove
-                .switchMap { walletRepository.getAssetByShortName("BTC") }
-                .subscribe { walletRepository.deleteAsset(it) }
     }
 
     override fun viewDidLoad() = viewDidLoad.onNext(Unit)
-    override fun didPressInsert() = insert.onNext(Unit)
-    override fun didPressRemove() = remove.onNext(Unit)
 }
 
 interface AccountViewModelInputs {
     fun viewDidLoad()
-    fun didPressInsert()
-    fun didPressRemove()
 }
 
 interface AccountViewModelOutputs {
