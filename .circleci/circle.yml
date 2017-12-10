@@ -27,9 +27,7 @@ dependencies:
 
 test:
   override:
-    - ./gradlew checkstyle
-    - ./gradlew lintRelease
-    - ./gradlew assembleRelease testRelease -PdisablePreDex
+    - ./gradlew testRelease
 
 experimental:
   notify:
