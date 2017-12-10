@@ -1,7 +1,8 @@
 # Kointlin
 
 [![CircleCI](https://circleci.com/gh/nicolasguillen10/kointlin.svg?style=svg)](https://circleci.com/gh/nicolasguillen10/kointlin)
-Welcome to another app to control your assets
+
+Welcome to another app to control your assets. The main idea for this app is to have it as playground for the latest libraries
 
 ## Libraries
 - Kotlin Android Extensions

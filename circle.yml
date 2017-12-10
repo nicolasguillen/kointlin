@@ -22,7 +22,7 @@ dependencies:
 
 test:
   override:
-    - ./gradlew testRelease
+    - ./gradlew test
 
 experimental:
   notify:
