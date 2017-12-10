@@ -1,5 +1,7 @@
 # Kointlin
-A small app developed using Kotlin
+
+[![CircleCI](https://circleci.com/gh/nicolasguillen10/kointlin.svg?style=svg)](https://circleci.com/gh/nicolasguillen10/kointlin)
+Welcome to another app to control your assets
 
 ## Libraries
 - Kotlin Android Extensions
