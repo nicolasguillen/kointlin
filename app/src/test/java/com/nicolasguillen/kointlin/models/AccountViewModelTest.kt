@@ -2,7 +2,8 @@ package com.nicolasguillen.kointlin.models
 
 import com.nicolasguillen.kointlin.any
 import com.nicolasguillen.kointlin.services.ApiRepository
-import com.nicolasguillen.kointlin.services.reponses.CoinPage
+import com.nicolasguillen.kointlin.services.reponses.PriceDetail
+import com.nicolasguillen.kointlin.services.reponses.PriceList
 import com.nicolasguillen.kointlin.storage.WalletRepository
 import com.nicolasguillen.kointlin.storage.entities.Asset
 import com.nicolasguillen.kointlin.whenever
@@ -78,7 +79,8 @@ class AccountViewModelTest {
         doReturn(just(listOf(
                 Asset("BTC", "Bitcoin", 1.0)
         ))).whenever(mockWalletRepository).getAllAssets()
-        doReturn(just(CoinPage("BTC", 100.0))).whenever(mockApiRepository).getPageFromCoin(any())
+        doReturn(just(PriceDetail(listOf(PriceList("BTC", "100.0", "")))))
+                .whenever(mockApiRepository).getPriceDetailFromCoin(any())
 
         //Act
         testee.inputs.viewDidLoad()
@@ -96,8 +98,10 @@ class AccountViewModelTest {
                 Asset("BTC", "Bitcoin", 1.0),
                 Asset("ETH", "Etherium", 0.5)
         ))).whenever(mockWalletRepository).getAllAssets()
-        doReturn(just(CoinPage("BTC", 100.0))).whenever(mockApiRepository).getPageFromCoin("BTC")
-        doReturn(just(CoinPage("ETH", 2.0))).whenever(mockApiRepository).getPageFromCoin("ETH")
+        doReturn(just(PriceDetail(listOf(PriceList("BTC", "100.0", "")))))
+                .whenever(mockApiRepository).getPriceDetailFromCoin("BTC")
+        doReturn(just(PriceDetail(listOf(PriceList("ETH", "2.0", "")))))
+                .whenever(mockApiRepository).getPriceDetailFromCoin("ETH")
 
         //Act
         testee.inputs.viewDidLoad()

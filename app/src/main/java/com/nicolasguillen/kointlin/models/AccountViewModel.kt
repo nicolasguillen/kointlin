@@ -14,6 +14,8 @@ class AccountViewModel(private val apiRepository: ApiRepository,
     private val didPressAdd = PublishProcessor.create<Unit>()
 
     //OUTPUTS
+    private val isLoading = PublishProcessor.create<Boolean>()
+    override fun isLoading(): Flowable<Boolean> = isLoading
     private val assets = PublishProcessor.create<List<Asset>>()
     override fun assets(): Flowable<List<Asset>> = assets
     private val totalAmount = PublishProcessor.create<Double>()
@@ -31,6 +33,7 @@ class AccountViewModel(private val apiRepository: ApiRepository,
 
         assets
                 .switchMap { this.calculateValueFromWallet(it) }
+                .doOnNext { isLoading.onNext(false) }
                 .subscribe { totalAmount.onNext(it) }
 
         didPressAdd.subscribe(startNewAssetActivity)
@@ -48,8 +51,10 @@ class AccountViewModel(private val apiRepository: ApiRepository,
 
                 Flowable.fromIterable(assetList)
                         .switchMap { asset ->
-                            this.apiRepository.getPageFromCoin(asset.shortName)
-                                .map { it.price * asset.amount }
+                            this.apiRepository.getPriceDetailFromCoin(asset.shortName)
+                                    .doOnSubscribe { isLoading.onNext(true) }
+                                .map { it.lastPriceList.first() }
+                                .map { it.lastLocaleString.toDouble() * asset.amount }
                         }
                         .toList()
                         .map { it.sum() }
@@ -66,6 +71,7 @@ interface AccountViewModelInputs {
 }
 
 interface AccountViewModelOutputs {
+    fun isLoading(): Flowable<Boolean>
     fun assets(): Flowable<List<Asset>>
     fun totalAmount(): Flowable<Double>
     fun startNewAssetActivity(): Flowable<Unit>
