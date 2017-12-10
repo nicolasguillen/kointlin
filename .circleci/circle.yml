@@ -1,58 +1,38 @@
-# Java Gradle CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-java/ for more details
-#
-version: 2
-jobs:
-  build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/openjdk:8-jdk
+general:
+  artifacts:
+    - app/build/outputs
+    - app/build/reports
 
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
+machine:
+  java:
+    version: oraclejdk8
+  environment:
+    ADB_INSTALL_TIMEOUT: 8
+    GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx512m -XX:+HeapDumpOnOutOfMemoryError"'
 
-    working_directory: ~/repo
+dependencies:
+  override:
+    - $ANDROID_HOME/tools/android list target
+    - make bootstrap-circle
+    - echo y | android update sdk --no-ui --all --filter android-26
+    - echo y | android update sdk --no-ui --all --filter build-tools-26.0.2
+    - echo y | android update sdk --no-ui --all --filter platform-tools
+    - echo y | android update sdk --no-ui --all --filter extra-android-m2repository
+    - echo y | android update sdk --no-ui --all --filter extra-google-m2repository
+    - echo y | android update sdk --no-ui --all --filter extra-android-support
+    - ./gradlew dependencies
+  cache_directories:
+    - ~/.gradle
+    - ~/.android
 
-    environment:
-      # Customize the JVM maximum heap limit
-      JVM_OPTS: -Xmx3200m
-      TERM: dumb
+test:
+  override:
+    - ./gradlew checkstyle
+    - ./gradlew lintRelease
+    - ./gradlew assembleRelease testRelease -PdisablePreDex
 
-    steps:
-      - checkout:
-          post:
-          - cp -r licenses/. $ANDROID_HOME/licenses
-
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "build.gradle" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
-      - run:
-                name: chmod permissions
-                command: chmod +x ./gradlew
-
-            - run:
-                name: Approve license for build tools
-                command: (echo y; echo y; echo y; echo y; echo y; echo y) |
-
-      $ANDROID_HOME/tools/bin/sdkmanager --licenses
-
-            - run:
-                name: Download Dependencies
-                command: ./gradlew androidDependencies
-
-#      - run: gradle dependencies
-
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: v1-dependencies-{{ checksum "build.gradle" }}
-
-      # run tests!
-      - run: gradle test
+experimental:
+  notify:
+    branches:
+      only:
+        - master
