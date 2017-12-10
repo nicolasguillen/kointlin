@@ -12,6 +12,6 @@ class ModelModule {
 
     @Provides fun providesAccountViewModel(apiRepository: ApiRepository, walletRepository: WalletRepository): AccountViewModel = AccountViewModel(apiRepository, walletRepository)
 
-    @Provides fun providesNewAssetViewModel(apiRepository: ApiRepository, walletRepository: WalletRepository): NewAssetViewModel = NewAssetViewModel(apiRepository, walletRepository)
+    @Provides fun providesNewAssetViewModel(walletRepository: WalletRepository): NewAssetViewModel = NewAssetViewModel(walletRepository)
 
 }

@@ -8,4 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AccountTheme" parent="AppTheme">
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>

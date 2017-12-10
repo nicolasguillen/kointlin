@@ -5,4 +5,5 @@
     <string name="new_asset_hint">      Please select one of the following assets</string>
     <string name="new_asset_amount">    Amount</string>
     <string name="new_asset_save">      Save</string>
+    <string name="new_asset_btc">       Bitcoin</string>
 </resources>

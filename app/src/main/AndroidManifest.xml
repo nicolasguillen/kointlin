@@ -11,7 +11,8 @@
         android:name=".KointlinApp"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.activities.AccountActivity" >
+        <activity android:name=".ui.activities.AccountActivity"
+            android:theme="@style/AccountTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

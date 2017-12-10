@@ -11,6 +11,7 @@ buildscript {
     ext.dagger_version = '2.12'
     ext.retrofit2_version = '2.3.0'
     ext.okhttp3_version = '3.8.0'
+    ext.picasso_version = '2.5.2'
     ext.multidex_version = '1.0.2'
     ext.junit_version = '4.12'
     ext.mockito_version = '1.10.19'
