@@ -15,7 +15,7 @@ Welcome to another app to control your assets. The main idea for this app is to 
 
 ## License
 
-    Copyright 2013 Nicolás Guillén
+    Copyright 2017 Nicolás Guillén
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
