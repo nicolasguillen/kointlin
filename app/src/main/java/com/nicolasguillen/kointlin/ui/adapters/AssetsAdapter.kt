@@ -10,16 +10,16 @@ import com.nicolasguillen.kointlin.R
 import com.nicolasguillen.kointlin.ui.viewholders.AssetViewHolder
 import android.view.LayoutInflater
 
-class AssetsAdapter(val assetList: List<Asset>): RecyclerView.Adapter<BaseViewHolder>() {
+class AssetsAdapter(private val assetList: List<Asset>): RecyclerView.Adapter<BaseViewHolder>() {
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup?, layout: Int): BaseViewHolder {
-        val layoutInflater = LayoutInflater.from(viewGroup?.context)
+    override fun onCreateViewHolder(viewGroup: ViewGroup, layout: Int): BaseViewHolder {
+        val layoutInflater = LayoutInflater.from(viewGroup.context)
         val view = layoutInflater.inflate(layout, viewGroup, false)
         return viewHolder(layout, view)
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder?, position: Int) {
-        holder?.bindData(objectFromPosition(position))
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+        holder.bindData(objectFromPosition(position))
     }
 
     override fun getItemCount(): Int = assetList.size
@@ -29,7 +29,7 @@ class AssetsAdapter(val assetList: List<Asset>): RecyclerView.Adapter<BaseViewHo
     }
 
     @LayoutRes
-    private fun layout(position: Int): Int = R.layout.item_wallet
+    private fun layout(@Suppress("UNUSED_PARAMETER") position: Int): Int = R.layout.item_wallet
 
     private fun viewHolder(@LayoutRes layout: Int, view: View): BaseViewHolder {
         return when (layout) {

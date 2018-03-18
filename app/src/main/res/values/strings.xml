@@ -2,8 +2,11 @@
     <string name="app_name">            Kointlin</string>
 
     <!--NEW ASSET-->
-    <string name="new_asset_hint">      Please select one of the following assets</string>
+    <string name="new_asset_hint">      Enter asset name</string>
     <string name="new_asset_amount">    Amount</string>
     <string name="new_asset_save">      Save</string>
-    <string name="new_asset_btc">       Bitcoin</string>
+
+    <!--URL-->
+    <string name="image_downloader_url">https://coincap.io/images/coins/imageId.png</string>
+
 </resources>

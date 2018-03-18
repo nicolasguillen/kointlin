@@ -54,8 +54,7 @@ class ApplicationModule(private val application: Application) {
                                     okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
                 .client(okHttpClient)
-//                .baseUrl("http://coincap.io")
-                .baseUrl("https://api-v0.blockfolio.com/")
+                .baseUrl("https://api.coinmarketcap.com/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()

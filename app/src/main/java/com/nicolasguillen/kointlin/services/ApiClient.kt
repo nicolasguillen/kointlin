@@ -3,15 +3,22 @@ package com.nicolasguillen.kointlin.services
 import com.google.gson.Gson
 import com.nicolasguillen.kointlin.libs.rx.operators.ApiErrorOperator
 import com.nicolasguillen.kointlin.libs.rx.operators.Operators
-import com.nicolasguillen.kointlin.services.reponses.PriceDetail
-import io.reactivex.Flowable
+import com.nicolasguillen.kointlin.services.reponses.TopCoin
+import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
 class ApiClient(private val service: ApiService, private val gson: Gson): ApiRepository {
 
-    override fun getPriceDetailFromCoin(coin: String): Flowable<PriceDetail> {
+    override fun getTopCoins(): Single<List<TopCoin>> {
         return service
-                .getPriceDetailFromCoin(coin, "USD", "bitfinex")
+                .getTopCoins()
+                .lift(apiErrorOperator())
+                .subscribeOn(Schedulers.io())
+    }
+
+    override fun getCoinFromId(id: String): Single<List<TopCoin>> {
+        return service
+                .getCoinFromId(id)
                 .lift(apiErrorOperator())
                 .subscribeOn(Schedulers.io())
     }

@@ -4,40 +4,36 @@ import com.google.gson.Gson
 import com.nicolasguillen.kointlin.services.errors.ApiException
 import com.nicolasguillen.kointlin.services.errors.ResponseException
 import com.nicolasguillen.kointlin.services.reponses.ErrorEnvelope
-import io.reactivex.FlowableOperator
+import io.reactivex.SingleObserver
+import io.reactivex.SingleOperator
+import io.reactivex.disposables.Disposable
 import org.reactivestreams.Subscriber
-import org.reactivestreams.Subscription
 import retrofit2.Response
 import java.io.IOException
 
 /**
- * Takes a [Response], if it's successful send it to [Subscriber.onNext], otherwise
+ * Takes a [Response], if it's successful send it to [SingleObserver.onSuccess], otherwise
  * attempt to parse the error.
 
  * Errors that conform to the API's error format are converted into an [ApiException] exception and sent to
- * [Subscriber.onError], otherwise a more generic [ResponseException] is sent to [Subscriber.onError].
+ * [SingleObserver.onError], otherwise a more generic [ResponseException] is sent to [Subscriber.onError].
 
  * @param <T> The response type.
 </T> */
-class ApiErrorOperator<T> internal constructor(private val gson: Gson) : FlowableOperator<T, Response<T>> {
+class ApiErrorOperator<T> internal constructor(private val gson: Gson) : SingleOperator<T, Response<T>> {
 
-    override fun apply(observer: Subscriber<in T>): Subscriber<in Response<T>> {
-        return object : Subscriber<Response<T>> {
+    override fun apply(observer: SingleObserver<in T>): SingleObserver<in Response<T>> {
+        return object : SingleObserver<Response<T>> {
 
-            override fun onSubscribe(s: Subscription?) {
-                observer.onSubscribe(s)
-            }
-
-            override fun onComplete() {
-                observer.onComplete()
+            override fun onSubscribe(d: Disposable) {
+                observer.onSubscribe(d)
             }
 
             override fun onError(e: Throwable) {
                 observer.onError(e)
             }
 
-            override fun onNext(response: Response<T>) {
-
+            override fun onSuccess(response: Response<T>) {
                 if (!response.isSuccessful) {
                     try {
                         val envelope = gson.fromJson(response.errorBody()?.string(), ErrorEnvelope::class.java)
@@ -48,7 +44,7 @@ class ApiErrorOperator<T> internal constructor(private val gson: Gson) : Flowabl
 
                 }
 
-                observer.onNext(response.body()!!)
+                observer.onSuccess(response.body()!!)
             }
         }
     }

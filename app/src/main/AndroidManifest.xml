@@ -1,17 +1,19 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.nicolasguillen.kointlin">
 
-    <!-- PERMISSIONS -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".KointlinApp"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".KointlinApp"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.activities.AccountActivity"
+        <activity
+            android:name=".ui.activities.AccountActivity"
             android:theme="@style/AccountTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +21,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activities.NewAssetActivity" />
-
+        <activity
+            android:name=".ui.activities.NewAssetActivity" />
     </application>
 </manifest>

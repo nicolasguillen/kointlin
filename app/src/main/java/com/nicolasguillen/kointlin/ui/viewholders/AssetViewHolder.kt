@@ -6,22 +6,23 @@ import android.widget.TextView
 import com.nicolasguillen.kointlin.R
 import com.nicolasguillen.kointlin.storage.entities.Asset
 import com.squareup.picasso.Picasso
-import kotterknife.bindView
 
 class AssetViewHolder(view: View): BaseViewHolder(view) {
-
-    private val icon: ImageView by bindView(R.id.item_asset_icon)
-    private val name: TextView by bindView(R.id.item_asset_name)
-    private val amount: TextView by bindView(R.id.item_asset_amount)
 
     override fun bindData(data: Any) {
         val asset = data as Asset
 
+        val url = context().getString(R.string.image_downloader_url)
+                .replace("imageId", asset.longName)
+        val icon = view().findViewById<ImageView>(R.id.item_asset_icon)
         Picasso.with(context())
-                .load("https://coincap.io/images/coins/${asset.longName}.png")
+                .load(url)
                 .into(icon)
 
+        val name = view().findViewById<TextView>(R.id.item_asset_name)
         name.text = asset.longName
+
+        val amount = view().findViewById<TextView>(R.id.item_asset_amount)
         amount.text = asset.amount.toString()
 
     }

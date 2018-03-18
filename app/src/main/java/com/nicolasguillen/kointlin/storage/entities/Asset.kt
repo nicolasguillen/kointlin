@@ -6,8 +6,9 @@ import android.arch.persistence.room.PrimaryKey
 
 @Entity(tableName = "wallet")
 data class Asset(
-        @ColumnInfo(name = "short_name")
         @PrimaryKey
+        val id: String,
+        @ColumnInfo(name = "short_name")
         val shortName: String,
         @ColumnInfo(name = "long_name")
         val longName: String,
