@@ -29,6 +29,19 @@ android {
         playAccountConfig = playAccountConfigs.production
     }
 
+    lintOptions {
+        textReport true
+        textOutput 'stdout'
+        lintConfig rootProject.file('lint.xml')
+
+        checkDependencies true
+        checkTestSources true
+        explainIssues false
+
+        // We run a full lint analysis as build part in CI, so skip vital checks for assemble task.
+        checkReleaseBuilds false
+    }
+
     signingConfigs {
         debug {
             storeFile file('debug.keystore')
