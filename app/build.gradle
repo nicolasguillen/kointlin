@@ -2,28 +2,57 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.github.triplet.play'
 
 android {
 
-    compileSdkVersion 27
-    buildToolsVersion "27.0.3"
+    compileSdkVersion buildConfig.compileSdk
+
+    playAccountConfigs {
+        production {
+            serviceAccountEmail = propOrEmpty('KOINTLIN_UPLOAD_PLAY_EMAIL')
+            pk12File = file('upload.p12')
+        }
+    }
 
     defaultConfig {
         applicationId "com.nicolasguillen.kointlin"
 
-        minSdkVersion 18
-        targetSdkVersion 27
+        minSdkVersion buildConfig.minSdk
+        targetSdkVersion buildConfig.targetSdk
 
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        versionCode buildConfig.version.code
+        versionName buildConfig.version.name
 
         vectorDrawables.useSupportLibrary = true
+
+        playAccountConfig = playAccountConfigs.production
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+            storePassword 'kointlin'
+            keyAlias 'kointlin'
+            keyPassword 'kointlin'
+        }
+        if (file('kointlin.keystore').exists()) {
+            upload {
+                storeFile file('kointlin.keystore')
+                storePassword propOrEmpty('KOINTLIN_UPLOAD_STORE_PASSWORD')
+                keyAlias 'kointlin'
+                keyPassword propOrEmpty('KOINTLIN_UPLOAD_KEY_PASSWORD')
+            }
+        }
     }
 
     buildTypes {
         release {
+            if (file('kointlin.keystore').exists()) {
+                signingConfig signingConfigs.upload
+            } else {
+                signingConfig signingConfigs.debug
+            }
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -39,42 +68,46 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation "com.android.support:appcompat-v7:$android_version"
-    implementation "com.android.support:cardview-v7:$android_version"
-    implementation "com.android.support:design:$android_version"
-    implementation "com.android.support:recyclerview-v7:$android_version"
-    implementation "com.android.support:support-annotations:$android_version"
-    implementation "com.android.support.constraint:constraint-layout:$constraint_version"
-    implementation "com.android.support:multidex:$multidex_version"
-    implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
-    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
-    implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
-    implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:$rxbinding_version"
-    implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit2_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit2_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3_version"
-    implementation "com.squareup.okhttp3:okhttp-urlconnection:$okhttp3_version"
-    implementation "com.squareup.picasso:picasso:$picasso_version"
-    implementation "com.google.dagger:dagger:$dagger_version"
-    implementation "androidx.core:core-ktx:$ktx_version"
-    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
-    implementation "android.arch.persistence.room:runtime:$arch_version"
-    implementation "android.arch.persistence.room:rxjava2:$arch_version"
-    kapt "android.arch.persistence.room:compiler:$arch_version"
+    implementation deps.kotlin.stdlib.jdk
 
-    // Testing
-    testImplementation "junit:junit:$junit_version"
-    testImplementation "org.mockito:mockito-core:$mockito_version"
-    androidTestImplementation "com.android.support.test:runner:$runner_version"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_version"
+    implementation deps.android.support.appCompat
+    implementation deps.android.support.design
+    implementation deps.android.support.recyclerView
+    implementation deps.android.support.cardView
+    implementation deps.android.support.annotations
+    implementation deps.android.support.constraintLayout
+
+    implementation deps.android.x.coreKtx
+
+    implementation deps.rx.java
+    implementation deps.rx.android
+    implementation deps.rx.kotlin
+    implementation deps.rx.binding
+
+    implementation deps.retrofit.client
+    implementation deps.retrofit.adapter
+    implementation deps.retrofit.converterGson
+
+    implementation deps.okhttp.client
+    implementation deps.okhttp.logging
+
+    implementation deps.picasso
+
+    implementation deps.dagger.runtime
+    annotationProcessor deps.dagger.compiler
+    kapt deps.dagger.compiler
+
+    implementation deps.android.arch.roomRuntime
+    implementation deps.android.arch.roomRx
+    kapt deps.android.arch.compiler
+
+    testImplementation deps.junit
+    testImplementation deps.mockito
+    testImplementation deps.android.test.runner
+
 }
 
-repositories {
-    google()
-    jcenter()
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots"}
+play {
+    track = 'beta'
+    uploadImages = false
 }

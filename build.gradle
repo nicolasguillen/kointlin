@@ -1,36 +1,91 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
-    ext.kotlin_version = '1.2.30'
-    ext.android_version = '27.1.0'
-    ext.rxjava_version = '2.1.0'
-    ext.rxandroid_version = '2.0.1'
-    ext.rxkotlin_version = '2.2.0'
-    ext.rxbinding_version = '2.0.0'
-    ext.dagger_version = '2.12'
-    ext.retrofit2_version = '2.3.0'
-    ext.okhttp3_version = '3.8.0'
-    ext.picasso_version = '2.5.2'
-    ext.constraint_version = '1.0.2'
-    ext.multidex_version = '1.0.3'
-    ext.junit_version = '4.12'
-    ext.mockito_version = '1.10.19'
-    ext.runner_version = '1.0.1'
-    ext.espresso_version = '3.0.1'
-    ext.arch_version = '1.0.0'
-    ext.ktx_version = '0.2'
+    ext.buildConfig = [
+            'compileSdk': 27,
+            'minSdk': 21,
+            'targetSdk': 27,
+
+            'version': [
+                    'major': 0,
+                    'minor': 1,
+                    'patch': 0,
+                    'build': 0,
+            ],
+    ]
+    ext.buildConfig.version['name'] = "${buildConfig.version.major}.${buildConfig.version.minor}.${buildConfig.version.patch}"
+    ext.buildConfig.version['code'] = buildConfig.version.major * 1000000 + buildConfig.version.minor * 10000 + buildConfig.version.patch * 100 + buildConfig.version.build
+
+    ext.versions = [
+            'kotlin': '1.2.30',
+            'supportLibrary': '27.1.0',
+            'atsl': '1.0.1',
+            'okhttp': '3.8.0',
+            'retrofit': '2.3.0',
+            'dagger': '2.12',
+            'room': '1.0.0',
+    ]
+
+    ext.deps = [
+            'kotlin': [
+                    'stdlib': [
+                            'jdk': "org.jetbrains.kotlin:kotlin-stdlib-jre7:${versions.kotlin}",
+                    ],
+            ],
+            'android': [
+                    'arch': [
+                            'roomRuntime': "android.arch.persistence.room:runtime:${versions.room}",
+                            'roomRx': "android.arch.persistence.room:rxjava2:${versions.room}",
+                            'compiler': "android.arch.persistence.room:compiler:${versions.room}",
+                    ],
+                    'support': [
+                            'annotations': "com.android.support:support-annotations:${versions.supportLibrary}",
+                            'recyclerView': "com.android.support:recyclerview-v7:${versions.supportLibrary}",
+                            'cardView': "com.android.support:cardview-v7:${versions.supportLibrary}",
+                            'appCompat': "com.android.support:appcompat-v7:${versions.supportLibrary}",
+                            'design': "com.android.support:design:${versions.supportLibrary}",
+                            'constraintLayout': 'com.android.support.constraint:constraint-layout:1.1.0-beta5',
+                    ],
+                    'x': [
+                            'coreKtx': "androidx.core:core-ktx:0.2",
+                    ],
+                    'test': [
+                            'runner': "com.android.support.test:runner:${versions.atsl}",
+                            'rules': "com.android.support.test:rules${versions.atsl}",
+                    ],
+            ],
+            'okhttp': [
+                    'client': "com.squareup.okhttp3:okhttp:${versions.okhttp}",
+                    'logging': "com.squareup.okhttp3:logging-interceptor:${versions.okhttp}",
+            ],
+            'retrofit': [
+                    'client': "com.squareup.retrofit2:retrofit:${versions.retrofit}",
+                    'adapter': "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}",
+                    'converterGson': "com.squareup.retrofit2:converter-gson:${versions.retrofit}",
+            ],
+            'rx': [
+                    'java': 'io.reactivex.rxjava2:rxjava:2.1.0',
+                    'android': 'io.reactivex.rxjava2:rxandroid:2.0.1',
+                    'kotlin': 'io.reactivex.rxjava2:rxkotlin:2.2.0',
+                    'binding': 'com.jakewharton.rxbinding2:rxbinding-kotlin:2.0.0',
+            ],
+            'dagger': [
+                    'runtime': "com.google.dagger:dagger:${versions.dagger}",
+                    'compiler': "com.google.dagger:dagger-compiler:${versions.dagger}",
+            ],
+            'picasso': 'com.squareup.picasso:picasso:2.5.2',
+            'junit': 'junit:junit:4.12',
+            'mockito': 'org.mockito:mockito-core:1.10.19',
+    ]
 
     repositories {
         google()
         jcenter()
+        mavenCentral()
     }
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
+        classpath 'com.github.triplet.gradle:play-publisher:1.2.0'
     }
 }
 
@@ -41,6 +96,17 @@ allprojects {
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+// Force all of the primary support libraries to use the same version.
+configurations.all {
+    resolutionStrategy {
+        eachDependency { details ->
+            if (details.requested.group == 'com.android.support') {
+                details.useVersion versions.supportLibrary
+            }
+        }
+    }
+}
+
+def propOrEmpty(String name) {
+    return hasProperty(name) ? getProperty(name) : ''
 }
