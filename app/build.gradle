@@ -34,10 +34,6 @@ android {
         textOutput 'stdout'
         lintConfig rootProject.file('lint.xml')
 
-        checkDependencies true
-        checkTestSources true
-        explainIssues false
-
         // We run a full lint analysis as build part in CI, so skip vital checks for assemble task.
         checkReleaseBuilds false
     }
@@ -69,8 +65,12 @@ android {
             } else {
                 signingConfig signingConfigs.debug
             }
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles(
+                    file('src/main/proguard-android.pro'),
+                    file('src/main/proguard-app.pro')
+            )
         }
     }
 
