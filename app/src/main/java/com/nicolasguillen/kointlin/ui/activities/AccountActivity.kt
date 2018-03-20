@@ -69,7 +69,6 @@ class AccountActivity: AppCompatActivity() {
 
     private fun startAddNewAsset() {
         startActivityForResult(Intent(this, NewAssetActivity::class.java), ActivityRequestCodes.ADD_NEW_ASSET)
-//        startActivityForResult(Intent(this, SearchAssetActivity::class.java), ActivityRequestCodes.ADD_NEW_ASSET)
     }
 
     override fun onDestroy() {
