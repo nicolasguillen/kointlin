@@ -26,6 +26,8 @@ android {
 
         vectorDrawables.useSupportLibrary = true
 
+        buildConfigField 'String', 'BUGSNAG_API_KEY', "\"${propOrEmpty('KOINTLIN_BUGSNAG_API_KEY')}\""
+
         playAccountConfig = playAccountConfigs.production
     }
 
@@ -57,6 +59,7 @@ android {
 
     buildTypes {
         debug {
+            applicationIdSuffix '.debug'
             signingConfig signingConfigs.debug
         }
         release {
@@ -106,6 +109,8 @@ dependencies {
 
     implementation deps.okhttp.client
     implementation deps.okhttp.logging
+
+    implementation deps.bugsnag
 
     implementation deps.picasso
 

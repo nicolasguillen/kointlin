@@ -7,7 +7,7 @@ buildscript {
             'version': [
                     'major': 0,
                     'minor': 1,
-                    'patch': 0,
+                    'patch': 1,
                     'build': 0,
             ],
     ]
@@ -71,6 +71,7 @@ buildscript {
                     'runtime': "com.google.dagger:dagger:${versions.dagger}",
                     'compiler': "com.google.dagger:dagger-compiler:${versions.dagger}",
             ],
+            'bugsnag': 'com.bugsnag:bugsnag-android:4.2.2',
             'picasso': 'com.squareup.picasso:picasso:2.5.2',
             'junit': 'junit:junit:4.12',
             'mockito': 'org.mockito:mockito-core:1.10.19',
