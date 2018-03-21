@@ -24,6 +24,8 @@ android {
         versionCode buildConfig.version.code
         versionName buildConfig.version.name
 
+        testInstrumentationRunner "com.nicolasguillen.kointlin.mocks.MockTestRunner"
+
         vectorDrawables.useSupportLibrary = true
 
         buildConfigField 'String', 'BUGSNAG_API_KEY', "\"${propOrEmpty('KOINTLIN_BUGSNAG_API_KEY')}\""
@@ -58,10 +60,6 @@ android {
     }
 
     buildTypes {
-        debug {
-            applicationIdSuffix '.debug'
-            signingConfig signingConfigs.debug
-        }
         release {
             if (file('kointlin.keystore').exists()) {
                 signingConfig signingConfigs.upload
@@ -125,8 +123,9 @@ dependencies {
     testImplementation deps.junit
     testImplementation deps.mockito
     testImplementation deps.android.test.runner
+    testImplementation deps.android.test.rules
 
-    androidTestImplementation deps.fastlane
+    androidTestImplementation deps.screengrab
 }
 
 play {
