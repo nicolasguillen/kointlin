@@ -61,7 +61,7 @@ KOINTLIN_UPLOAD_KEY_PASSWORD=<password>
 
 ### Publishing
 
-You must have an `upload.p12` and your actual email in `~/.gradle/gradle.properties` together with :
+You must have an `upload.p12` and the following in `~/.gradle/gradle.properties` with your actual email:
 
 ```
 KOINTLIN_UPLOAD_PLAY_EMAIL=<email>
