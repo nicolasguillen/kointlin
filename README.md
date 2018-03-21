@@ -13,6 +13,18 @@ Welcome to another app to control your assets. The main idea for this app is to 
 - Dagger 2
 - Mockito
 
+
+## About The Author
+
+### Nicolás Guillén
+
+Android Developer. Designer. Kotlin Enthusiast.
+
+<a href="https://play.google.com/store/apps/details?id=com.nicolasguillen.kointlin&hl=en" target="_blank"><img src="https://github.com/nicolasguillen10/social-icons/blob/master/play-store-icon.png?raw=true" width="60"></a>
+<a href="https://instagram.com/nic0guillen" target="_blank"><img src="https://github.com/nicolasguillen10/social-icons/blob/master/instagram-icon.png?raw=true" width="60"></a>
+<a href="http://linkedin.com/in/nicolasguillen10"><img src="https://github.com/nicolasguillen10/social-icons/blob/master/linkedin-icon.png?raw=true" width="60"></a>
+
+
 ## License
 
     Copyright 2017 Nicolás Guillén
