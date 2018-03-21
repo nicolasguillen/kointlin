@@ -12,7 +12,7 @@
 default_platform(:android)
 
 platform :android do
-  lane :test do
+  lane :screenshot do
     gradle(
       task: 'assembleDebug assembleAndroidTest'
     )
