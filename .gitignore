@@ -22,3 +22,8 @@ Thumbs.db
 
 # Keystore for signing release builds
 app/kointlin.keystore
+
+# Fastlane
+fastlane/README.md
+fastlane/report.xml
+*/screenshots.html
