@@ -1,4 +1,4 @@
-package com.nicolasguillen.kointlin
+package com.nicolasguillen.kointlin.utils
 
 import android.os.ParcelFileDescriptor
 import android.support.test.InstrumentationRegistry.getInstrumentation
@@ -13,7 +13,8 @@ class DemoModeEnabler {
         sendCommand("enter")
         sendCommand("notifications", "visible" to "false")
         sendCommand("network", "wifi" to "show", "level" to "4", "fully" to "true")
-        sendCommand("network", "mobile" to "show", "level" to "4", "datatype" to "false")
+        sendCommand("network", "mobile" to "hide")
+        sendCommand("network", "nosim" to "hide")
         sendCommand("battery", "level" to "100", "plugged" to "false")
         sendCommand("clock", "hhmm" to "1200")
     }

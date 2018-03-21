@@ -1,4 +1,4 @@
-package com.nicolasguillen.kointlin
+package com.nicolasguillen.kointlin.utils
 
 import org.junit.rules.TestRule
 import org.junit.runner.Description
