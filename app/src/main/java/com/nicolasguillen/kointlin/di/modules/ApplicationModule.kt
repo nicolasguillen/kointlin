@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
-class ApplicationModule(private val application: Application) {
+open class ApplicationModule(private val application: Application) {
 
     @Provides
     @Singleton
@@ -31,8 +31,8 @@ class ApplicationModule(private val application: Application) {
     }
 
     @Provides
-    internal fun provideApiClient(apiService: ApiService,
-                                      gson: Gson): ApiRepository {
+    internal open fun provideApiClient(apiService: ApiService,
+                                       gson: Gson): ApiRepository {
         return ApiClient(apiService, gson)
     }
 
@@ -90,8 +90,7 @@ class ApplicationModule(private val application: Application) {
     internal fun providesWalletDao(database: WalletDatabase) = database.walletDao()
 
     @Provides
-    internal fun providesWalletClient(walletDao: WalletDao): WalletRepository {
+    internal open fun providesWalletClient(walletDao: WalletDao): WalletRepository {
         return WalletClient(walletDao)
     }
-
 }

@@ -8,7 +8,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class ModelModule {
+open class ModelModule {
 
     @Provides fun providesAccountViewModel(useCase: AccountUseCase): AccountViewModel = AccountViewModel(useCase)
 

@@ -10,10 +10,12 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class UseCaseModule {
+open class UseCaseModule {
 
-    @Provides fun providesLoadWalletUseCase(apiRepository: ApiRepository, walletRepository: WalletRepository): AccountUseCase = AccountUseCaseImpl(apiRepository, walletRepository)
+    @Provides
+    open fun providesLoadWalletUseCase(apiRepository: ApiRepository, walletRepository: WalletRepository): AccountUseCase = AccountUseCaseImpl(apiRepository, walletRepository)
 
-    @Provides fun providesNewAssetUseCase(apiRepository: ApiRepository, walletRepository: WalletRepository): NewAssetUseCase = NewAssetUseCaseImpl(apiRepository, walletRepository)
+    @Provides
+    open fun providesNewAssetUseCase(apiRepository: ApiRepository, walletRepository: WalletRepository): NewAssetUseCase = NewAssetUseCaseImpl(apiRepository, walletRepository)
 
 }

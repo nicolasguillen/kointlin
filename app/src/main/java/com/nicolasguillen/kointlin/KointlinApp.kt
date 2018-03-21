@@ -8,7 +8,7 @@ import com.nicolasguillen.kointlin.di.modules.ApplicationModule
 import com.nicolasguillen.kointlin.di.modules.ModelModule
 import com.nicolasguillen.kointlin.di.modules.UseCaseModule
 
-class KointlinApp : Application() {
+open class KointlinApp : Application() {
 
     companion object {
         @JvmStatic lateinit var applicationComponent: ApplicationComponent
@@ -17,12 +17,7 @@ class KointlinApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        applicationComponent = DaggerApplicationComponent
-                .builder()
-                .applicationModule(ApplicationModule(this))
-                .modelModule(ModelModule())
-                .useCaseModule(UseCaseModule())
-                .build()
+        applicationComponent = initApplicationComponent()
 
         if (!BuildConfig.DEBUG) {
             require(BuildConfig.BUGSNAG_API_KEY.isNotBlank()) {
@@ -33,6 +28,15 @@ class KointlinApp : Application() {
             client.setReleaseStage(BuildConfig.BUILD_TYPE)
             client.setProjectPackages("com.nicolasguillen.kointlin")
         }
+    }
+
+    open fun initApplicationComponent(): ApplicationComponent {
+        return DaggerApplicationComponent
+                .builder()
+                .applicationModule(ApplicationModule(this))
+                .modelModule(ModelModule())
+                .useCaseModule(UseCaseModule())
+                .build()
     }
 
 }
