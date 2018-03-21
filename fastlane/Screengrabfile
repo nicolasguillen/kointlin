@@ -1,0 +1,11 @@
+android_home '~/Library/Android/sdk/'
+
+test_instrumentation_runner 'com.nicolasguillen.kointlin.mocks.MockTestRunner'
+
+output_directory 'app/src/main/play'
+
+locales ['en-US']
+
+skip_open_summary true
+
+clear_previous_screenshots true

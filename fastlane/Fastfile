@@ -1,0 +1,30 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  lane :test do
+    gradle(
+      task: 'assembleDebug assembleAndroidTest'
+    )
+
+    apk_path = Dir.glob("../**/*-debug.apk").first
+    test_apk_path = Dir.glob("../**/*-debug-androidTest.apk").first
+
+    screengrab(
+      app_package_name: 'com.nicolasguillen.kointlin',
+      app_apk_path: File.absolute_path(apk_path),
+      tests_apk_path:  File.absolute_path(test_apk_path)
+    )
+  end
+
+end
