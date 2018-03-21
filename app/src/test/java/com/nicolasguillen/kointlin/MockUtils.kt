@@ -11,6 +11,7 @@ fun <T> any(): T {
     Mockito.any<T>()
     return uninitialized()
 }
+@Suppress("UNCHECKED_CAST")
 private fun <T> uninitialized(): T = null as T
 
 fun apiError() = ApiException(ErrorEnvelope(500, "BadRequest", "Fake error!"))

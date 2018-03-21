@@ -8,7 +8,7 @@ import com.nicolasguillen.kointlin.usecases.StoreAssetResult
 import com.nicolasguillen.kointlin.whenever
 import io.reactivex.Single.just
 import io.reactivex.observers.TestObserver
-import junit.framework.Assert.assertTrue
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock

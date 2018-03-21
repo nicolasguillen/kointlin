@@ -126,9 +126,10 @@ dependencies {
     testImplementation deps.mockito
     testImplementation deps.android.test.runner
 
+    androidTestImplementation deps.fastlane
 }
 
 play {
     track = 'beta'
-    uploadImages = false
+    uploadImages = true
 }
