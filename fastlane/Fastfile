@@ -27,4 +27,19 @@ platform :android do
     )
   end
 
+  lane :release do
+    gradle(
+      task: 'assembleRelease'
+    )
+
+    supply(
+      track: "beta",
+      apk: "app/build/outputs/apk/release/app-release.apk",
+      json_key: "app/upload.json",
+      package_name: "com.nicolasguillen.kointlin",
+      skip_upload_metadata: true,
+      skip_upload_images: true
+    )
+  end
+
 end

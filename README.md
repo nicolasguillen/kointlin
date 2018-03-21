@@ -7,7 +7,7 @@
 Android project written in [Kotlin](https://kotlinlang.org/). A sample application that allows you to control your assets.
 
 ## Libraries
-* [Kotlin Android Extensions](https://kotlinlang.org/docs/tutorials/android-plugin.html)
+* [Android KTX](https://github.com/android/android-ktx)
 * [Room](https://developer.android.com/topic/libraries/architecture/room.html)
 * [Retrofit 2](http://square.github.io/retrofit/)
 * [RxJava 2](https://github.com/ReactiveX/RxJava)
@@ -19,7 +19,6 @@ Android project written in [Kotlin](https://kotlinlang.org/). A sample applicati
 ## Testing Libraries
 * [JUnit](http://junit.org/junit4/)
 * [Mockito](http://mockito.org/)
-* [Espresso](https://developer.android.com/training/testing/espresso/index.html)
 
 Deploying
 ------------------------------
@@ -27,26 +26,19 @@ All deploy builds require that the `kointlin.keystore` is present (see "Release"
 
 ### Beta
 
- 1. Ensure all tests pass and the app can be built:
+ 1. Update the version information in `build.gradle`.
 
-        ./gradlew clean build connectedCheck
-
- 2. Update the version information in `build.gradle`.
-
- 3. Update the information in `src/main/play` to reflect changes in style, app description, or
-    what's new in the release.
-
- 4. Generate screenshots using [fastlane](https://fastlane.tools/)
+ 2. Run all tests and generate screenshots using [fastlane](https://fastlane.tools/)
 
         fastlane screenshot
 
- 5. Install the release APK onto a phone or emulator.
+ 3. Install the release APK onto a phone or emulator.
 
         ./gradlew :app:installRelease
 
- 6. Upload everything to Google Playstore
+ 4. Upload everything to Google Playstore
 
-        ./gradlew publishRelease
+        fastlane release
 
 ### Keystore
 
@@ -61,11 +53,7 @@ KOINTLIN_UPLOAD_KEY_PASSWORD=<password>
 
 ### Publishing
 
-You must have an `upload.p12` and the following in `~/.gradle/gradle.properties` with your actual email:
-
-```
-KOINTLIN_UPLOAD_PLAY_EMAIL=<email>
-```
+You must have an `upload.json`
 
 ## About The Author
 
@@ -76,7 +64,6 @@ Android Developer
 <a href="https://play.google.com/store/apps/developer?id=Nicol%C3%A1s+Guill%C3%A9n" target="_blank"><img src="https://github.com/nicolasguillen10/social-icons/blob/master/play-store-icon.png?raw=true" width="60"></a>
 <a href="https://instagram.com/nic0guillen" target="_blank"><img src="https://github.com/nicolasguillen10/social-icons/blob/master/instagram-icon.png?raw=true" width="60"></a>
 <a href="http://linkedin.com/in/nicolasguillen10"><img src="https://github.com/nicolasguillen10/social-icons/blob/master/linkedin-icon.png?raw=true" width="60"></a>
-
 
 ## License
 

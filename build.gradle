@@ -7,7 +7,7 @@ buildscript {
             'version': [
                     'major': 0,
                     'minor': 1,
-                    'patch': 3,
+                    'patch': 4,
                     'build': 0,
             ],
     ]
@@ -87,7 +87,6 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
-        classpath 'com.github.triplet.gradle:play-publisher:1.2.0'
     }
 }
 

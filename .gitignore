@@ -26,4 +26,4 @@ app/kointlin.keystore
 # Fastlane
 fastlane/README.md
 fastlane/report.xml
-*/screenshots.html
+fastlane/metadata/
