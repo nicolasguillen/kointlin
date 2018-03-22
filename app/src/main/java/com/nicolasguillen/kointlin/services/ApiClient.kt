@@ -9,16 +9,16 @@ import io.reactivex.schedulers.Schedulers
 
 class ApiClient(private val service: ApiService, private val gson: Gson): ApiRepository {
 
-    override fun getTopCoins(): Single<List<TopCoin>> {
+    override fun getTopCoins(currency: String): Single<List<TopCoin>> {
         return service
-                .getTopCoins()
+                .getTopCoins(currency)
                 .lift(apiErrorOperator())
                 .subscribeOn(Schedulers.io())
     }
 
-    override fun getCoinFromId(id: String): Single<List<TopCoin>> {
+    override fun getCoinFromId(id: String, currency: String): Single<List<TopCoin>> {
         return service
-                .getCoinFromId(id)
+                .getCoinFromId(id, currency)
                 .lift(apiErrorOperator())
                 .subscribeOn(Schedulers.io())
     }

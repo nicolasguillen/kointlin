@@ -4,28 +4,20 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.CollapsingToolbarLayout
 import android.support.design.widget.FloatingActionButton
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.view.Menu
+import android.view.MenuItem
 import com.nicolasguillen.kointlin.KointlinApp
 import com.nicolasguillen.kointlin.R
 import com.nicolasguillen.kointlin.libs.ActivityRequestCodes
-import com.nicolasguillen.kointlin.libs.util.addTo
 import com.nicolasguillen.kointlin.models.AccountViewModel
-import com.nicolasguillen.kointlin.ui.views.DisplayableAsset
 import com.nicolasguillen.kointlin.ui.adapters.AssetsAdapter
-import io.reactivex.Observable
+import com.nicolasguillen.kointlin.ui.views.DisplayableAsset
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.exceptions.OnErrorNotImplementedException
-import javax.inject.Inject
 
-class AccountActivity: AppCompatActivity() {
-
-    private val disposables = CompositeDisposable()
-
-    @Inject lateinit var viewModel: AccountViewModel
+class AccountActivity: BaseActivity<AccountViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,11 +63,6 @@ class AccountActivity: AppCompatActivity() {
         startActivityForResult(Intent(this, NewAssetActivity::class.java), ActivityRequestCodes.ADD_NEW_ASSET)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        disposables.clear()
-    }
-
     private fun init() {
         setSupportActionBar(findViewById(R.id.account_toolbar))
 
@@ -84,15 +71,34 @@ class AccountActivity: AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == ActivityRequestCodes.ADD_NEW_ASSET) {
-            if (resultCode == RESULT_OK) {
-                viewModel.inputs.viewDidLoad()
+        when(requestCode){
+            ActivityRequestCodes.ADD_NEW_ASSET -> {
+                if (resultCode == RESULT_OK) {
+                    viewModel.inputs.viewDidLoad()
+                }
+            }
+            ActivityRequestCodes.SETTINGS -> {
+                if (resultCode == RESULT_OK) {
+                    viewModel.inputs.viewDidLoad()
+                }
             }
         }
     }
 
-    private fun <I> Observable<I>.crashingSubscribe(onNext: (I) -> Unit) {
-        subscribe(onNext, { throw OnErrorNotImplementedException(it) }).addTo(disposables)
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_account, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.account_settings ->
+                    startActivityForResult(
+                            Intent(this, SettingsActivity::class.java),
+                            ActivityRequestCodes.SETTINGS
+                    )
+        }
+        return true
     }
 
 }

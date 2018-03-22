@@ -5,7 +5,7 @@ import io.reactivex.Single
 
 interface ApiRepository {
 
-    fun getTopCoins(): Single<List<TopCoin>>
+    fun getTopCoins(currency: String): Single<List<TopCoin>>
 
-    fun getCoinFromId(id: String): Single<List<TopCoin>>
+    fun getCoinFromId(id: String, currency: String): Single<List<TopCoin>>
 }

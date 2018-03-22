@@ -8,7 +8,7 @@ class MockWalletClient : WalletRepository {
     override fun getAllAssets(): Single<List<Asset>> {
         return Single.just(listOf(
                 Asset("BTC", "BTC", "Bitcoin", 1.0),
-                Asset("ETH", "ETH", "Etherium", 2.0)
+                Asset("ETH", "ETH", "Ethereum", 2.0)
         ))
     }
 
@@ -16,7 +16,7 @@ class MockWalletClient : WalletRepository {
         return Single.just(
                 when(shortName) {
                     "BTC" -> Asset("BTC", "BTC", "Bitcoin", 1.0)
-                    "ETH" -> Asset("ETH", "ETH", "Etherium", 2.0)
+                    "ETH" -> Asset("ETH", "ETH", "Ethereum", 2.0)
                     else -> Asset(shortName, shortName, shortName, 0.0)
                 }
         )

@@ -7,10 +7,10 @@ import com.nicolasguillen.kointlin.BuildConfig
 import com.nicolasguillen.kointlin.services.ApiClient
 import com.nicolasguillen.kointlin.services.ApiRepository
 import com.nicolasguillen.kointlin.services.ApiService
-import com.nicolasguillen.kointlin.storage.WalletClient
-import com.nicolasguillen.kointlin.storage.WalletDao
-import com.nicolasguillen.kointlin.storage.WalletDatabase
-import com.nicolasguillen.kointlin.storage.WalletRepository
+import com.nicolasguillen.kointlin.storage.*
+import com.nicolasguillen.kointlin.storage.dao.WalletDao
+import com.nicolasguillen.kointlin.storage.dao.AppSettingsDao
+import com.nicolasguillen.kointlin.storage.migrations.MIGRATION_5_6
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -79,18 +79,26 @@ open class ApplicationModule(private val application: Application) {
     }
 
     @Provides
-    internal fun providesAppDatabase(): WalletDatabase {
-        return Room.databaseBuilder(application, WalletDatabase::class.java, "wallet-db")
-                .fallbackToDestructiveMigration()
+    internal fun providesAppDatabase(): KointlinDatabase {
+        return Room.databaseBuilder(application, KointlinDatabase::class.java, "kointlin-db")
                 .allowMainThreadQueries()
+                .addMigrations(MIGRATION_5_6)
                 .build()
     }
 
     @Provides
-    internal fun providesWalletDao(database: WalletDatabase) = database.walletDao()
+    internal fun providesWalletDao(database: KointlinDatabase) = database.walletDao()
 
     @Provides
     internal open fun providesWalletClient(walletDao: WalletDao): WalletRepository {
         return WalletClient(walletDao)
+    }
+
+    @Provides
+    internal fun providesAppSettingsDao(database: KointlinDatabase) = database.appSettingsDao()
+
+    @Provides
+    internal open fun providesAppSettingsClient(appSettingsDao: AppSettingsDao): AppSettingsRepository {
+        return AppSettingsClient(appSettingsDao)
     }
 }

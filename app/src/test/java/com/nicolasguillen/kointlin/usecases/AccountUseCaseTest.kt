@@ -3,6 +3,7 @@ package com.nicolasguillen.kointlin.usecases
 import com.nicolasguillen.kointlin.any
 import com.nicolasguillen.kointlin.services.ApiRepository
 import com.nicolasguillen.kointlin.services.reponses.TopCoin
+import com.nicolasguillen.kointlin.storage.AppSettingsRepository
 import com.nicolasguillen.kointlin.storage.WalletRepository
 import com.nicolasguillen.kointlin.storage.entities.Asset
 import com.nicolasguillen.kointlin.whenever
@@ -20,6 +21,7 @@ class AccountUseCaseTest {
 
     @Mock private lateinit var mockApiRepository: ApiRepository
     @Mock private lateinit var mockWalletRepository: WalletRepository
+    @Mock private lateinit var mockAppSettingsRepository: AppSettingsRepository
 
     private lateinit var testee: AccountUseCase
 
@@ -27,7 +29,7 @@ class AccountUseCaseTest {
     fun setUp(){
         MockitoAnnotations.initMocks(this)
 
-        testee = AccountUseCaseImpl(mockApiRepository, mockWalletRepository)
+        testee = AccountUseCaseImpl(mockApiRepository, mockWalletRepository, mockAppSettingsRepository)
     }
 
     @Test
@@ -54,7 +56,7 @@ class AccountUseCaseTest {
                 Asset("BTC", "BTC", "Bitcoin", 1.0)
         ))).whenever(mockWalletRepository).getAllAssets()
         doReturn(Single.just(listOf(TopCoin("BTC", "Bitcoin", "BTC", "100.0", "0"))))
-                .whenever(mockApiRepository).getCoinFromId(any())
+                .whenever(mockApiRepository).getCoinFromId(any(), any())
 
         //Act
         testee.getDisplayableAssets().subscribe(test)
@@ -70,12 +72,12 @@ class AccountUseCaseTest {
         val test = TestObserver.create<GetPriceResult>()
         doReturn(just(listOf(
                 Asset("BTC", "BTC", "Bitcoin", 1.0),
-                Asset("ETH", "ETH", "Etherium", 1.0)
+                Asset("ETH", "ETH", "Ethereum", 1.0)
         ))).whenever(mockWalletRepository).getAllAssets()
         doReturn(just(listOf(TopCoin("BTC", "Bitcoin", "BTC", "100.0", "0"))))
-                .whenever(mockApiRepository).getCoinFromId("BTC")
-        doReturn(just(listOf(TopCoin("ETH", "Etherium", "ETH", "2.0", "0"))))
-                .whenever(mockApiRepository).getCoinFromId("ETH")
+                .whenever(mockApiRepository).getCoinFromId("BTC", any())
+        doReturn(just(listOf(TopCoin("ETH", "Ethereum", "ETH", "2.0", "0"))))
+                .whenever(mockApiRepository).getCoinFromId("ETH", any())
 
         //Act
         testee.getDisplayableAssets().subscribe(test)

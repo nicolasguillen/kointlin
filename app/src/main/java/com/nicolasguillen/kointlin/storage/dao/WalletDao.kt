@@ -1,15 +1,18 @@
-package com.nicolasguillen.kointlin.storage
+package com.nicolasguillen.kointlin.storage.dao
 
 import android.arch.persistence.room.*
 import com.nicolasguillen.kointlin.storage.entities.Asset
 import io.reactivex.Single
+import org.intellij.lang.annotations.Language
 
 @Dao
 interface WalletDao {
 
+    @Language("RoomSql")
     @Query("SELECT * FROM wallet")
     fun getAllAssets(): Single<List<Asset>>
-    
+
+    @Language("RoomSql")
     @Query("SELECT * FROM wallet WHERE short_name = :shortName")
     fun getAssetByShortName(shortName: String): Single<Asset>
 

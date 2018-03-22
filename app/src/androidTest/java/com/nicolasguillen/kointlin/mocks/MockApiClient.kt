@@ -6,18 +6,18 @@ import io.reactivex.Single
 
 class MockApiClient: ApiRepository {
 
-    override fun getTopCoins(): Single<List<TopCoin>> {
+    override fun getTopCoins(currency: String): Single<List<TopCoin>> {
         return Single.just(listOf(
                 TopCoin("BTC", "Bitcoin", "BTC", "6000.0", "0.621"),
-                TopCoin("ETH", "Etherium", "ETH", "200.0", "-1.45")
+                TopCoin("ETH", "Ethereum", "ETH", "200.0", "-1.45")
         ))
     }
 
-    override fun getCoinFromId(id: String): Single<List<TopCoin>> {
+    override fun getCoinFromId(id: String, currency: String): Single<List<TopCoin>> {
         return Single.just(listOf(
                 when(id) {
                     "BTC" -> TopCoin("BTC", "Bitcoin", "BTC", "6000.0", "0.621")
-                    "ETH" -> TopCoin("ETH", "Etherium", "ETH", "200.0", "-1.45")
+                    "ETH" -> TopCoin("ETH", "Ethereum", "ETH", "200.0", "-1.45")
                     else -> TopCoin("BTC", "Bitcoin", "BTC", "6000.0", "0.621")
                 }
         ))

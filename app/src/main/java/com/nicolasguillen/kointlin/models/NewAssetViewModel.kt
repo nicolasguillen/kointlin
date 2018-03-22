@@ -78,7 +78,13 @@ class NewAssetViewModel(private val useCase: NewAssetUseCase): NewAssetViewModel
 
     internal class InputData(val allCoins: List<TopCoin>, val coinName: String, val amount: String)
     internal class NewAssetData(private val coin: TopCoin?, private val amount: String) {
-        fun isValid(): Boolean = amount.isNotEmpty() && amount.toDouble() >= 0 && coin != null
+        fun isValid(): Boolean = amount.isNotEmpty() && amount.isValidNumber() && coin != null
         fun toAsset(): Asset = Asset(coin!!.id, coin.symbol, coin.name, amount.toDouble())
     }
+
+}
+
+fun String.isValidNumber(): Boolean {
+    return try { toDouble() >= 0 }
+    catch (e:Exception) { false }
 }

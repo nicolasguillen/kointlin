@@ -19,7 +19,7 @@ class NewAssetUseCaseImpl(private val apiRepository: ApiRepository,
 
     override fun loadAllTopCoins(): Single<LoadTopAssetsResult> {
         return Single.create { observer ->
-            this.apiRepository.getTopCoins()
+            this.apiRepository.getTopCoins("USD")
                     .subscribe(
                             { coins -> observer.onSuccess(LoadTopAssetsResult.Success(coins)) },
                             { error -> when(error){

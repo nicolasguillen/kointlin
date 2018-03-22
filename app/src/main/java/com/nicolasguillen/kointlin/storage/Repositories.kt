@@ -1,6 +1,7 @@
 package com.nicolasguillen.kointlin.storage
 
 import com.nicolasguillen.kointlin.storage.entities.Asset
+import com.nicolasguillen.kointlin.storage.entities.AppSettings
 import io.reactivex.Single
 
 interface WalletRepository {
@@ -14,4 +15,13 @@ interface WalletRepository {
     fun updateAsset(asset: Asset)
 
     fun deleteAsset(asset: Asset)
+}
+
+interface AppSettingsRepository {
+
+    fun getAppSettings(): Single<AppSettings>
+
+    fun saveAppSettings(appSettings: AppSettings)
+
+    fun removeAll()
 }
