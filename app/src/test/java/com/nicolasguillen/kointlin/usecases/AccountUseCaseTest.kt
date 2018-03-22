@@ -31,68 +31,57 @@ class AccountUseCaseTest {
     }
 
     @Test
-    fun test_fetchAllMyAssets_when_didFetchMyAssets_then_emitSuccess(){
-        //Arrange
-        val test = TestObserver.create<FetchMyAssetsResult>()
-        doReturn(just(listOf<Asset>()))
-                .whenever(mockWalletRepository).getAllAssets()
-
-        //Act
-        testee.fetchAllMyAssets().subscribe(test)
-
-        //Assert
-        assertTrue(test.events[0][0] is FetchMyAssetsResult.Success)
-    }
-
-    @Test
-    fun test_getPriceFromAllMyAssets_when_isEmptyWallet_then_emitPriceZero(){
+    fun test_getDisplayableAssets_when_isEmptyWallet_then_emitPriceZero(){
         //Arrange
         val test = TestObserver.create<GetPriceResult>()
         doReturn(just(listOf<Asset>()))
                 .whenever(mockWalletRepository).getAllAssets()
 
         //Act
-        testee.getPriceFromAllMyAssets().subscribe(test)
+        testee.getDisplayableAssets().subscribe(test)
 
         //Assert
         assertTrue(test.events[0][0] is GetPriceResult.Success)
-        assertTrue((test.events[0][0] as GetPriceResult.Success).price == 0.0)
+        val list = (test.events[0][0] as GetPriceResult.Success).list
+        assertTrue(list.isEmpty())
     }
 
     @Test
-    fun test_getPriceFromAllMyAssets_when_ownBTCAndPriceIs100_then_totalAmountIs100(){
+    fun test_getDisplayableAssets_when_ownBTCAndPriceIs100_then_totalAmountIs100(){
         //Arrange
         val test = TestObserver.create<GetPriceResult>()
         doReturn(just(listOf(
                 Asset("BTC", "BTC", "Bitcoin", 1.0)
         ))).whenever(mockWalletRepository).getAllAssets()
-        doReturn(Single.just(listOf(TopCoin("BTC", "Bitcoin", "BTC", "100.0"))))
+        doReturn(Single.just(listOf(TopCoin("BTC", "Bitcoin", "BTC", "100.0", "0"))))
                 .whenever(mockApiRepository).getCoinFromId(any())
 
         //Act
-        testee.getPriceFromAllMyAssets().subscribe(test)
+        testee.getDisplayableAssets().subscribe(test)
 
         //Assert
-        assertTrue((test.events[0][0] as GetPriceResult.Success).price == 100.0)
+        val list = (test.events[0][0] as GetPriceResult.Success).list
+        assertTrue(list.sumByDouble { it.currentPrice } == 100.0)
     }
 
     @Test
-    fun test_getPriceFromAllMyAssets_when_ownBTCAndETHAndPriceIs100And2_then_totalAmountIs102(){
+    fun test_getDisplayableAssets_when_ownBTCAndETHAndPriceIs100And2_then_totalAmountIs102(){
         //Arrange
         val test = TestObserver.create<GetPriceResult>()
         doReturn(just(listOf(
                 Asset("BTC", "BTC", "Bitcoin", 1.0),
                 Asset("ETH", "ETH", "Etherium", 1.0)
         ))).whenever(mockWalletRepository).getAllAssets()
-        doReturn(just(listOf(TopCoin("BTC", "Bitcoin", "BTC", "100.0"))))
+        doReturn(just(listOf(TopCoin("BTC", "Bitcoin", "BTC", "100.0", "0"))))
                 .whenever(mockApiRepository).getCoinFromId("BTC")
-        doReturn(just(listOf(TopCoin("ETH", "Etherium", "ETH", "2.0"))))
+        doReturn(just(listOf(TopCoin("ETH", "Etherium", "ETH", "2.0", "0"))))
                 .whenever(mockApiRepository).getCoinFromId("ETH")
 
         //Act
-        testee.getPriceFromAllMyAssets().subscribe(test)
+        testee.getDisplayableAssets().subscribe(test)
 
         //Assert
-        assertTrue((test.events[0][0] as GetPriceResult.Success).price == 102.0)
+        val list = (test.events[0][0] as GetPriceResult.Success).list
+        assertTrue(list.sumByDouble { it.currentPrice } == 102.0)
     }
 }

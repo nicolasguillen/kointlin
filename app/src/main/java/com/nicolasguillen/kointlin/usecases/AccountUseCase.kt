@@ -8,21 +8,11 @@ import com.nicolasguillen.kointlin.ui.views.DisplayableAsset
 import io.reactivex.Single
 
 interface AccountUseCase {
-
-    fun fetchAllMyAssets(): Single<FetchMyAssetsResult>
-
     fun getDisplayableAssets(): Single<GetPriceResult>
 }
 
 class AccountUseCaseImpl(private val apiRepository: ApiRepository,
                          private val walletRepository: WalletRepository) : AccountUseCase {
-
-    override fun fetchAllMyAssets(): Single<FetchMyAssetsResult> {
-        return Single.create { observer ->
-            this.walletRepository.getAllAssets()
-                    .subscribe { list -> observer.onSuccess(FetchMyAssetsResult.Success(list)) }
-        }
-    }
 
     override fun getDisplayableAssets(): Single<GetPriceResult> {
         return Single.create { observer ->
@@ -61,10 +51,6 @@ class AccountUseCaseImpl(private val apiRepository: ApiRepository,
                 }
     }
 
-}
-
-sealed class FetchMyAssetsResult {
-    class Success(val assetList: List<Asset>): FetchMyAssetsResult()
 }
 
 sealed class GetPriceResult {

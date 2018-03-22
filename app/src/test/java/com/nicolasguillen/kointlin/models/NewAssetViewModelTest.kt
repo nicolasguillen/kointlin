@@ -34,7 +34,7 @@ class NewAssetViewModelTest {
         val test = TestObserver.create<List<TopCoin>>()
         testee.outputs.allCoins().subscribe(test)
         doReturn(just(LoadTopAssetsResult.Success(listOf(
-                TopCoin("BTC", "Bitcoin", "BTC", "100")
+                TopCoin("BTC", "Bitcoin", "BTC", "100", "1")
         )))).whenever(mockUseCase).loadAllTopCoins()
 
         //Act
@@ -50,7 +50,7 @@ class NewAssetViewModelTest {
         val test = TestObserver.create<Unit>()
         testee.outputs.didSave().subscribe(test)
         doReturn(just(LoadTopAssetsResult.Success(listOf(
-                TopCoin("BTC", "Bitcoin", "BTC", "100")
+                TopCoin("BTC", "Bitcoin", "BTC", "100","1")
         )))).whenever(mockUseCase).loadAllTopCoins()
         doReturn(just(StoreAssetResult.Success))
                 .whenever(mockUseCase).storeNewAsset(any())

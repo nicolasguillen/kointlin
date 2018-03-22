@@ -1,7 +1,6 @@
 package com.nicolasguillen.kointlin.models
 
 import com.nicolasguillen.kointlin.usecases.AccountUseCase
-import com.nicolasguillen.kointlin.usecases.FetchMyAssetsResult
 import com.nicolasguillen.kointlin.usecases.GetPriceResult
 import com.nicolasguillen.kointlin.whenever
 import io.reactivex.Single.just
@@ -27,36 +26,17 @@ class AccountViewModelTest {
     }
 
     @Test
-    fun test_viewDidLoad_then_fetchAllMyAssets(){
+    fun test_viewDidLoad_then_getDisplayableAssets(){
         //Arrange
-        doReturn(just(FetchMyAssetsResult.Success(emptyList())))
-                .whenever(mockUseCase).fetchAllMyAssets()
-        doReturn(just(GetPriceResult.Success(0.0)))
-                .whenever(mockUseCase).getPriceFromAllMyAssets()
+        doReturn(just(GetPriceResult.Success(emptyList())))
+                .whenever(mockUseCase).getDisplayableAssets()
 
 
         //Act
         testee.inputs.viewDidLoad()
 
         //Assert
-        verify(mockUseCase).fetchAllMyAssets()
-    }
-
-    @Test
-    fun test_viewDidLoad_then_getPriceFromAllMyAssets(){
-        //Arrange
-        val test = TestObserver.create<Double>()
-        testee.outputs.totalAmount().subscribe(test)
-        doReturn(just(FetchMyAssetsResult.Success(emptyList())))
-                .whenever(mockUseCase).fetchAllMyAssets()
-        doReturn(just(GetPriceResult.Success(0.0)))
-                .whenever(mockUseCase).getPriceFromAllMyAssets()
-
-        //Act
-        testee.inputs.viewDidLoad()
-
-        //Assert
-        verify(mockUseCase).getPriceFromAllMyAssets()
+        verify(mockUseCase).getDisplayableAssets()
     }
 
     @Test
