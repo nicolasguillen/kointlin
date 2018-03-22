@@ -1,10 +1,10 @@
 package com.nicolasguillen.kointlin.usecases
 
-import com.nicolasguillen.kointlin.any
 import com.nicolasguillen.kointlin.services.ApiRepository
 import com.nicolasguillen.kointlin.services.reponses.TopCoin
 import com.nicolasguillen.kointlin.storage.AppSettingsRepository
 import com.nicolasguillen.kointlin.storage.WalletRepository
+import com.nicolasguillen.kointlin.storage.entities.AppSettings
 import com.nicolasguillen.kointlin.storage.entities.Asset
 import com.nicolasguillen.kointlin.whenever
 import io.reactivex.Single
@@ -38,6 +38,8 @@ class AccountUseCaseTest {
         val test = TestObserver.create<GetPriceResult>()
         doReturn(just(listOf<Asset>()))
                 .whenever(mockWalletRepository).getAllAssets()
+        doReturn(just(AppSettings("1", "USD")))
+                .whenever(mockAppSettingsRepository).getAppSettings()
 
         //Act
         testee.getDisplayableAssets().subscribe(test)
@@ -52,11 +54,13 @@ class AccountUseCaseTest {
     fun test_getDisplayableAssets_when_ownBTCAndPriceIs100_then_totalAmountIs100(){
         //Arrange
         val test = TestObserver.create<GetPriceResult>()
+        doReturn(just(AppSettings("1", "USD")))
+                .whenever(mockAppSettingsRepository).getAppSettings()
         doReturn(just(listOf(
                 Asset("BTC", "BTC", "Bitcoin", 1.0)
         ))).whenever(mockWalletRepository).getAllAssets()
         doReturn(Single.just(listOf(TopCoin("BTC", "Bitcoin", "BTC", "100.0", "0"))))
-                .whenever(mockApiRepository).getCoinFromId(any(), any())
+                .whenever(mockApiRepository).getCoinFromId("BTC", "USD")
 
         //Act
         testee.getDisplayableAssets().subscribe(test)
@@ -70,14 +74,16 @@ class AccountUseCaseTest {
     fun test_getDisplayableAssets_when_ownBTCAndETHAndPriceIs100And2_then_totalAmountIs102(){
         //Arrange
         val test = TestObserver.create<GetPriceResult>()
+        doReturn(just(AppSettings("1", "USD")))
+                .whenever(mockAppSettingsRepository).getAppSettings()
         doReturn(just(listOf(
                 Asset("BTC", "BTC", "Bitcoin", 1.0),
                 Asset("ETH", "ETH", "Ethereum", 1.0)
         ))).whenever(mockWalletRepository).getAllAssets()
         doReturn(just(listOf(TopCoin("BTC", "Bitcoin", "BTC", "100.0", "0"))))
-                .whenever(mockApiRepository).getCoinFromId("BTC", any())
+                .whenever(mockApiRepository).getCoinFromId("BTC", "USD")
         doReturn(just(listOf(TopCoin("ETH", "Ethereum", "ETH", "2.0", "0"))))
-                .whenever(mockApiRepository).getCoinFromId("ETH", any())
+                .whenever(mockApiRepository).getCoinFromId("ETH", "USD")
 
         //Act
         testee.getDisplayableAssets().subscribe(test)
