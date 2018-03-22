@@ -1,9 +1,8 @@
 package com.nicolasguillen.kointlin.models
 
-import com.nicolasguillen.kointlin.storage.entities.Asset
-import com.nicolasguillen.kointlin.usecases.FetchMyAssetsResult
-import com.nicolasguillen.kointlin.usecases.GetPriceResult
+import com.nicolasguillen.kointlin.ui.views.DisplayableAsset
 import com.nicolasguillen.kointlin.usecases.AccountUseCase
+import com.nicolasguillen.kointlin.usecases.GetPriceResult
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
@@ -16,8 +15,8 @@ class AccountViewModel(private val useCase: AccountUseCase): AccountViewModelInp
     //OUTPUTS
     private val isLoading = PublishSubject.create<Boolean>()
     override fun isLoading(): Observable<Boolean> = isLoading
-    private val assets = PublishSubject.create<List<Asset>>()
-    override fun assets(): Observable<List<Asset>> = assets
+    private val displayableAssets = PublishSubject.create<List<DisplayableAsset>>()
+    override fun displayableAssets(): Observable<List<DisplayableAsset>> = displayableAssets
     private val totalAmount = PublishSubject.create<Double>()
     override fun totalAmount(): Observable<Double> = totalAmount
     private val startNewAssetActivity = PublishSubject.create<Unit>()
@@ -29,21 +28,14 @@ class AccountViewModel(private val useCase: AccountUseCase): AccountViewModelInp
     init {
 
         viewDidLoad
-                .switchMapSingle { this.useCase.fetchAllMyAssets() }
-                .subscribe { when(it){
-                    is FetchMyAssetsResult.Success ->
-                        assets.onNext(it.assetList)
-                } }
-
-        viewDidLoad
                 .switchMapSingle {
-                    this.useCase.getPriceFromAllMyAssets()
+                    this.useCase.getDisplayableAssets()
                             .doOnSubscribe { isLoading.onNext(true) }
                             .doOnSuccess { isLoading.onNext(false) }
                 }
                 .subscribe { when(it){
                     is GetPriceResult.Success ->
-                        totalAmount.onNext(it.price)
+                        displayableAssets.onNext(it.list)
                 } }
 
         didPressAdd
@@ -62,7 +54,7 @@ interface AccountViewModelInputs {
 
 interface AccountViewModelOutputs {
     fun isLoading(): Observable<Boolean>
-    fun assets(): Observable<List<Asset>>
+    fun displayableAssets(): Observable<List<DisplayableAsset>>
     fun totalAmount(): Observable<Double>
     fun startNewAssetActivity(): Observable<Unit>
 }

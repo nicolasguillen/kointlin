@@ -1,16 +1,16 @@
 package com.nicolasguillen.kointlin.ui.adapters
 
-import android.support.v7.widget.RecyclerView
-import android.view.ViewGroup
-import com.nicolasguillen.kointlin.storage.entities.Asset
-import com.nicolasguillen.kointlin.ui.viewholders.BaseViewHolder
 import android.support.annotation.LayoutRes
-import android.view.View
-import com.nicolasguillen.kointlin.R
-import com.nicolasguillen.kointlin.ui.viewholders.AssetViewHolder
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.nicolasguillen.kointlin.R
+import com.nicolasguillen.kointlin.ui.views.DisplayableAsset
+import com.nicolasguillen.kointlin.ui.viewholders.AssetViewHolder
+import com.nicolasguillen.kointlin.ui.viewholders.BaseViewHolder
 
-class AssetsAdapter(private val assetList: List<Asset>): RecyclerView.Adapter<BaseViewHolder>() {
+class AssetsAdapter(private val assetList: List<DisplayableAsset>): RecyclerView.Adapter<BaseViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, layout: Int): BaseViewHolder {
         val layoutInflater = LayoutInflater.from(viewGroup.context)

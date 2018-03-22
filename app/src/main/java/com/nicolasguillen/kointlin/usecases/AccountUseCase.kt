@@ -4,13 +4,14 @@ import com.nicolasguillen.kointlin.services.ApiRepository
 import com.nicolasguillen.kointlin.services.errors.ApiException
 import com.nicolasguillen.kointlin.storage.WalletRepository
 import com.nicolasguillen.kointlin.storage.entities.Asset
+import com.nicolasguillen.kointlin.ui.views.DisplayableAsset
 import io.reactivex.Single
 
 interface AccountUseCase {
 
     fun fetchAllMyAssets(): Single<FetchMyAssetsResult>
 
-    fun getPriceFromAllMyAssets(): Single<GetPriceResult>
+    fun getDisplayableAssets(): Single<GetPriceResult>
 }
 
 class AccountUseCaseImpl(private val apiRepository: ApiRepository,
@@ -23,7 +24,7 @@ class AccountUseCaseImpl(private val apiRepository: ApiRepository,
         }
     }
 
-    override fun getPriceFromAllMyAssets(): Single<GetPriceResult> {
+    override fun getDisplayableAssets(): Single<GetPriceResult> {
         return Single.create { observer ->
             this.walletRepository.getAllAssets()
                     .flatMap { this.calculateValueFromWallet(it) }
@@ -39,21 +40,25 @@ class AccountUseCaseImpl(private val apiRepository: ApiRepository,
         }
     }
 
-    private fun calculateValueFromWallet(assetList: List<Asset>): Single<Double> {
+    private fun calculateValueFromWallet(assetList: List<Asset>): Single<List<DisplayableAsset>> {
         return if(assetList.isEmpty()){
-            Single.just(0.0)
+            Single.just(emptyList())
         } else {
-            Single.concat(assetList.map { asd(it) })
-                    .scan { t1, t2 -> t1 + t2 }
-                    .lastElement()
-                    .toSingle()
+            Single.concat(assetList
+                    .filter { it.amount > 0 }
+                    .map { fetchAndMapToDisplayable(it) })
+                    .toList()
         }
     }
 
-    private fun asd(asset: Asset): Single<Double>{
+    private fun fetchAndMapToDisplayable(asset: Asset): Single<DisplayableAsset>{
         return this.apiRepository.getCoinFromId(asset.id)
                 .map { it.first() }
-                .map { it.priceUsd.toDouble() * asset.amount }
+                .map { coin ->
+                    val current = coin.priceUsd.toDouble() * asset.amount
+                    val variant = coin.percentChange24h.toDouble() * current / 100
+                    DisplayableAsset(asset, current, variant, "USD")
+                }
     }
 
 }
@@ -63,7 +68,7 @@ sealed class FetchMyAssetsResult {
 }
 
 sealed class GetPriceResult {
-    class Success(val price: Double): GetPriceResult()
+    class Success(val list: List<DisplayableAsset>): GetPriceResult()
     class ApiError(val errorCode: Int?): GetPriceResult()
     object UnknownError: GetPriceResult()
 }

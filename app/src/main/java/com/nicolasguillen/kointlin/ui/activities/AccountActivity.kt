@@ -13,7 +13,7 @@ import com.nicolasguillen.kointlin.R
 import com.nicolasguillen.kointlin.libs.ActivityRequestCodes
 import com.nicolasguillen.kointlin.libs.util.addTo
 import com.nicolasguillen.kointlin.models.AccountViewModel
-import com.nicolasguillen.kointlin.storage.entities.Asset
+import com.nicolasguillen.kointlin.ui.views.DisplayableAsset
 import com.nicolasguillen.kointlin.ui.adapters.AssetsAdapter
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -35,7 +35,7 @@ class AccountActivity: AppCompatActivity() {
         setContentView(R.layout.activity_account)
 
         viewModel.outputs
-                .assets()
+                .displayableAssets()
                 .observeOn(AndroidSchedulers.mainThread())
                 .crashingSubscribe { showAssets(it) }
 
@@ -54,7 +54,7 @@ class AccountActivity: AppCompatActivity() {
         init()
     }
 
-    private fun showAssets(list: List<Asset>) {
+    private fun showAssets(list: List<DisplayableAsset>) {
         val assetList = findViewById<RecyclerView>(R.id.account_asset_list)
         assetList.adapter = AssetsAdapter(list)
         assetList.layoutManager = LinearLayoutManager(this)

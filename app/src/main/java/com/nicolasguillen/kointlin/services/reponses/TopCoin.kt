@@ -6,4 +6,7 @@ class TopCoin(val id: String,
               val name: String,
               val symbol: String,
               @SerializedName("price_usd")
-              val priceUsd: String)
+              val priceUsd: String,
+              @SerializedName("percent_change_24h")
+              val percentChange24h: String
+)
