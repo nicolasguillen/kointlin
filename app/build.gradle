@@ -95,6 +95,7 @@ dependencies {
     implementation deps.retrofit.client
     implementation deps.retrofit.adapter
     implementation deps.retrofit.converterGson
+    implementation deps.retrofit.converterXml
 
     implementation deps.okhttp.client
     implementation deps.okhttp.logging
