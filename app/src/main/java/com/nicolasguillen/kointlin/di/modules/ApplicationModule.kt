@@ -9,8 +9,8 @@ import com.nicolasguillen.kointlin.services.ApiRepository
 import com.nicolasguillen.kointlin.services.ApiService
 import com.nicolasguillen.kointlin.services.RssService
 import com.nicolasguillen.kointlin.storage.*
-import com.nicolasguillen.kointlin.storage.dao.WalletDao
 import com.nicolasguillen.kointlin.storage.dao.AppSettingsDao
+import com.nicolasguillen.kointlin.storage.dao.WalletDao
 import com.nicolasguillen.kointlin.storage.migrations.MIGRATION_5_6
 import dagger.Module
 import dagger.Provides
@@ -19,7 +19,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -69,7 +68,7 @@ open class ApplicationModule(private val application: Application) {
         return Retrofit.Builder()
                 .client(okHttpClient)
                 .baseUrl("https://www.coindesk.com")
-                .addConverterFactory(SimpleXmlConverterFactory.create())
+//                .addConverterFactory(SimpleXmlConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
                 .create(RssService::class.java)
