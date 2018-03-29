@@ -8,7 +8,7 @@ import android.view.MenuItem
 import com.nicolasguillen.kointlin.KointlinApp
 import com.nicolasguillen.kointlin.R
 import com.nicolasguillen.kointlin.models.SetCurrencyViewModel
-import com.nicolasguillen.kointlin.ui.adapters.SetCurrencyAdapter
+import com.nicolasguillen.kointlin.ui.adapters.GenericAdapter
 import com.nicolasguillen.kointlin.usecases.DisplayableCurrency
 import io.reactivex.android.schedulers.AndroidSchedulers
 
@@ -42,7 +42,7 @@ class SetCurrencyActivity: BaseActivity<SetCurrencyViewModel>() {
     private fun displayList(list: List<DisplayableCurrency>) {
         val recyclerView = findViewById<RecyclerView>(R.id.set_currency_list)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = SetCurrencyAdapter(list, viewModel.inputs)
+        recyclerView.adapter = GenericAdapter(list, viewModel.inputs, R.layout.item_set_currency)
     }
 
     private fun init() {

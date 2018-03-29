@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.nicolasguillen.kointlin.R
 import com.nicolasguillen.kointlin.models.SetCurrencyViewModelInputs
-import com.nicolasguillen.kointlin.ui.viewholders.BaseViewHolder
-import com.nicolasguillen.kointlin.ui.viewholders.CurrencyViewHolder
-import com.nicolasguillen.kointlin.usecases.DisplayableCurrency
+import com.nicolasguillen.kointlin.ui.viewholders.*
 
-class SetCurrencyAdapter(private val currencyList: List<DisplayableCurrency>, val inputs: SetCurrencyViewModelInputs): RecyclerView.Adapter<BaseViewHolder>() {
+class GenericAdapter(private val list: List<Any>,
+                     private val inputs: Any,
+                     private val layout: Int): RecyclerView.Adapter<BaseViewHolder>() {
+
+    constructor(list: List<Any>, layout: Int) : this(list, Any(), layout)
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, layout: Int): BaseViewHolder {
         val layoutInflater = LayoutInflater.from(viewGroup.context)
@@ -23,23 +25,28 @@ class SetCurrencyAdapter(private val currencyList: List<DisplayableCurrency>, va
         holder.bindData(objectFromPosition(position))
     }
 
-    override fun getItemCount(): Int = currencyList.size
+    override fun getItemCount(): Int = list.size
 
     override fun getItemViewType(position: Int): Int {
         return layout(position)
     }
 
     @LayoutRes
-    private fun layout(@Suppress("UNUSED_PARAMETER") position: Int): Int = R.layout.item_set_currency
+    private fun layout(@Suppress("UNUSED_PARAMETER") position: Int): Int = layout
 
     private fun viewHolder(@LayoutRes layout: Int, view: View): BaseViewHolder {
         return when (layout) {
-            R.layout.item_set_currency -> CurrencyViewHolder(view, inputs)
-            else -> CurrencyViewHolder(view, inputs)
+            R.layout.item_set_currency ->
+                CurrencyViewHolder(view, inputs as SetCurrencyViewModelInputs)
+            R.layout.item_wallet ->
+                AssetViewHolder(view)
+            R.layout.item_news_feed ->
+                NewsFeedViewHolder(view)
+            else -> EmptyViewHolder(view)
         }
     }
 
     private fun objectFromPosition(position: Int): Any {
-        return this.currencyList[position]
+        return this.list[position]
     }
 }

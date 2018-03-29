@@ -13,7 +13,7 @@ import com.nicolasguillen.kointlin.KointlinApp
 import com.nicolasguillen.kointlin.R
 import com.nicolasguillen.kointlin.libs.ActivityRequestCodes
 import com.nicolasguillen.kointlin.models.AccountViewModel
-import com.nicolasguillen.kointlin.ui.adapters.AssetsAdapter
+import com.nicolasguillen.kointlin.ui.adapters.GenericAdapter
 import com.nicolasguillen.kointlin.ui.views.DisplayableAsset
 import io.reactivex.android.schedulers.AndroidSchedulers
 
@@ -48,7 +48,7 @@ class AccountActivity: BaseActivity<AccountViewModel>() {
 
     private fun showAssets(list: List<DisplayableAsset>) {
         val assetList = findViewById<RecyclerView>(R.id.account_asset_list)
-        assetList.adapter = AssetsAdapter(list)
+        assetList.adapter = GenericAdapter(list, R.layout.item_wallet)
         assetList.layoutManager = LinearLayoutManager(this)
     }
 
