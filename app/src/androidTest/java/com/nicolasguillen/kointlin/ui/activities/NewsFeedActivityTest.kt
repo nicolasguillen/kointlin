@@ -7,6 +7,7 @@ import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
+import android.view.View
 import com.nicolasguillen.kointlin.R
 import com.nicolasguillen.kointlin.utils.DemoModeRule
 import org.junit.BeforeClass
@@ -17,6 +18,11 @@ import org.junit.runner.RunWith
 import tools.fastlane.screengrab.Screengrab
 import tools.fastlane.screengrab.UiAutomatorScreenshotStrategy
 import tools.fastlane.screengrab.locale.LocaleTestRule
+import android.view.ViewGroup
+import org.hamcrest.Description
+import org.hamcrest.Matcher
+import org.hamcrest.TypeSafeMatcher
+
 
 @Suppress("unused")
 @RunWith(AndroidJUnit4::class)
@@ -47,10 +53,26 @@ class NewsFeedActivityTest {
 
         SystemClock.sleep(1500)
 
-        onView(withId(R.id.news_feed_image)).check(matches(isDisplayed()))
+        onView(nthChildOf(withId(R.id.set_currency_list), 0))
+                .check(matches(isDisplayed()))
 
         Screengrab.screenshot("03")
     }
 
+    private fun nthChildOf(parentMatcher: Matcher<View>, childPosition: Int): Matcher<View> {
+        return object : TypeSafeMatcher<View>() {
+            override fun describeTo(description: Description) {
+                description.appendText("with $childPosition child view of type parentMatcher")
+            }
 
+            override fun matchesSafely(view: View): Boolean {
+                if (view.parent !is ViewGroup) {
+                    return parentMatcher.matches(view.parent)
+                }
+
+                val group = view.parent as ViewGroup
+                return parentMatcher.matches(view.parent) && group.getChildAt(childPosition) == view
+            }
+        }
+    }
 }

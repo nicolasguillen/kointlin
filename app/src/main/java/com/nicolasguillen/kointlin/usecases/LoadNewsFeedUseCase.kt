@@ -15,7 +15,6 @@ class LoadNewsFeedUseCaseImpl(private val apiRepository: ApiRepository) : LoadNe
     override fun fetchNewsFeed(): Single<FetchNewsFeedResult> {
         return Single.create { observer ->
             this.apiRepository.getCoindeskNewsFeed()
-                    .map { it.apply { it.forEach { it.image = getIncreasedImageSize(it.image) } } }
                     .map { it.map { DisplayableFeed(it) } }
                     .subscribe(
                             { observer.onSuccess(FetchNewsFeedResult.Success(it)) },
@@ -27,10 +26,6 @@ class LoadNewsFeedUseCaseImpl(private val apiRepository: ApiRepository) : LoadNe
                             } }
                     )
         }
-    }
-
-    private fun getIncreasedImageSize(imageUrl: String): String {
-        return imageUrl.replace(Regex("(-)(\\d+)(x)(\\d+)"), "")
     }
 }
 
