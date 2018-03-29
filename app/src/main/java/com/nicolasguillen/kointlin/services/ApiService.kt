@@ -1,6 +1,5 @@
 package com.nicolasguillen.kointlin.services
 
-import com.nicolasguillen.kointlin.services.reponses.CoinTelegraphFeed
 import com.nicolasguillen.kointlin.services.reponses.CoindeskFeed
 import com.nicolasguillen.kointlin.services.reponses.TopCoin
 import io.reactivex.Single
@@ -20,12 +19,5 @@ interface ApiService {
 
     @GET("http://api.coindesk.com/mapi/posts.json")
     fun getCoindeskNewsFeed(): Single<Response<List<CoindeskFeed>>>
-
-}
-
-interface RssService {
-
-    @GET("https://cointelegraph.com/feed/")
-    fun getCoinTelegraphNewsFeed(): Single<Response<CoinTelegraphFeed>>
 
 }

@@ -3,14 +3,12 @@ package com.nicolasguillen.kointlin.services
 import com.google.gson.Gson
 import com.nicolasguillen.kointlin.libs.rx.operators.ApiErrorOperator
 import com.nicolasguillen.kointlin.libs.rx.operators.Operators
-import com.nicolasguillen.kointlin.services.reponses.CoinTelegraphFeed
 import com.nicolasguillen.kointlin.services.reponses.CoindeskFeed
 import com.nicolasguillen.kointlin.services.reponses.TopCoin
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
 class ApiClient(private val apiService: ApiService,
-                private val rssService: RssService,
                 private val gson: Gson): ApiRepository {
 
     override fun getTopCoins(currency: String): Single<List<TopCoin>> {
@@ -30,13 +28,6 @@ class ApiClient(private val apiService: ApiService,
     override fun getCoindeskNewsFeed(): Single<List<CoindeskFeed>> {
         return apiService
                 .getCoindeskNewsFeed()
-                .lift(apiErrorOperator())
-                .subscribeOn(Schedulers.io())
-    }
-
-    override fun getCoinTelegraphNewsFeed(): Single<CoinTelegraphFeed> {
-        return rssService
-                .getCoinTelegraphNewsFeed()
                 .lift(apiErrorOperator())
                 .subscribeOn(Schedulers.io())
     }

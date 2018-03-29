@@ -1,6 +1,5 @@
 package com.nicolasguillen.kointlin.services
 
-import com.nicolasguillen.kointlin.services.reponses.CoinTelegraphFeed
 import com.nicolasguillen.kointlin.services.reponses.CoindeskFeed
 import com.nicolasguillen.kointlin.services.reponses.TopCoin
 import io.reactivex.Single
@@ -13,5 +12,4 @@ interface ApiRepository {
 
     fun getCoindeskNewsFeed(): Single<List<CoindeskFeed>>
 
-    fun getCoinTelegraphNewsFeed(): Single<CoinTelegraphFeed>
 }

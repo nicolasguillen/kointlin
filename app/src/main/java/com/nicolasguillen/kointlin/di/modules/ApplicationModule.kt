@@ -7,7 +7,6 @@ import com.nicolasguillen.kointlin.BuildConfig
 import com.nicolasguillen.kointlin.services.ApiClient
 import com.nicolasguillen.kointlin.services.ApiRepository
 import com.nicolasguillen.kointlin.services.ApiService
-import com.nicolasguillen.kointlin.services.RssService
 import com.nicolasguillen.kointlin.storage.*
 import com.nicolasguillen.kointlin.storage.dao.AppSettingsDao
 import com.nicolasguillen.kointlin.storage.dao.WalletDao
@@ -33,9 +32,8 @@ open class ApplicationModule(private val application: Application) {
 
     @Provides
     internal open fun provideApiClient(apiService: ApiService,
-                                       rssService: RssService,
                                        gson: Gson): ApiRepository {
-        return ApiClient(apiService, rssService, gson)
+        return ApiClient(apiService, gson)
     }
 
     @Provides
@@ -61,17 +59,6 @@ open class ApplicationModule(private val application: Application) {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
                 .create(ApiService::class.java)
-    }
-
-    @Provides
-    internal fun provideRssiService(okHttpClient: OkHttpClient): RssService {
-        return Retrofit.Builder()
-                .client(okHttpClient)
-                .baseUrl("https://www.coindesk.com")
-//                .addConverterFactory(SimpleXmlConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build()
-                .create(RssService::class.java)
     }
 
     @Provides
