@@ -14,7 +14,7 @@ default_platform(:android)
 platform :android do
   lane :screenshot do
     gradle(
-      task: 'assembleDebug assembleAndroidTest'
+      task: 'clean assembleDebug assembleAndroidTest'
     )
 
     apk_path = Dir.glob("../**/*-debug.apk").first
