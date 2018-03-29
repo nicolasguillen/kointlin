@@ -20,7 +20,6 @@
     <string name="settings_title">          Settings</string>
     <string name="settings_currency_title"> Default currency</string>
     <string name="settings_currency_change">Change currency</string>
-    <string name="settings_currency_search">Search currency</string>
     <string name="settings_currency_disp">  %s (%s)</string>
 
 
