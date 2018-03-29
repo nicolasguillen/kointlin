@@ -8,11 +8,10 @@ import com.nicolasguillen.kointlin.di.DaggerApplicationComponent
 import com.nicolasguillen.kointlin.di.modules.ApplicationModule
 import com.nicolasguillen.kointlin.services.ApiRepository
 import com.nicolasguillen.kointlin.services.ApiService
-import com.nicolasguillen.kointlin.services.RssService
 import com.nicolasguillen.kointlin.storage.AppSettingsRepository
-import com.nicolasguillen.kointlin.storage.dao.WalletDao
 import com.nicolasguillen.kointlin.storage.WalletRepository
 import com.nicolasguillen.kointlin.storage.dao.AppSettingsDao
+import com.nicolasguillen.kointlin.storage.dao.WalletDao
 import dagger.Module
 
 class MockApp: KointlinApp() {
@@ -26,7 +25,6 @@ class MockApp: KointlinApp() {
     @Module class MockApplicationModule(application: Application) : ApplicationModule(application) {
 
         override fun provideApiClient(apiService: ApiService,
-                                      rssService: RssService,
                                       gson: Gson): ApiRepository {
             return MockApiClient()
         }
@@ -38,8 +36,5 @@ class MockApp: KointlinApp() {
         override fun providesAppSettingsClient(appSettingsDao: AppSettingsDao): AppSettingsRepository {
             return MockAppSettingsClient()
         }
-
     }
-
-
 }

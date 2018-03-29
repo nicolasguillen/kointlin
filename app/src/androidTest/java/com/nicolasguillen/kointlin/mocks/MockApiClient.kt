@@ -1,7 +1,6 @@
 package com.nicolasguillen.kointlin.mocks
 
 import com.nicolasguillen.kointlin.services.ApiRepository
-import com.nicolasguillen.kointlin.services.reponses.CoinTelegraphFeed
 import com.nicolasguillen.kointlin.services.reponses.CoindeskFeed
 import com.nicolasguillen.kointlin.services.reponses.TopCoin
 import io.reactivex.Single
@@ -33,10 +32,6 @@ class MockApiClient: ApiRepository {
                 CoindeskFeed("Blockchain Remittances Face Efficiency Hurdle, Says Taiwan Central Bank", "url", "url", "https://media.coindesk.com/uploads/2018/03/Taiwan-dollar-1-180x134.jpg", "Mar 23, 2018 at 09:00"),
                 CoindeskFeed("Coinbase In Talks to Buy Bitcoin Startup Earn.com", "url", "url", "https://media.coindesk.com/uploads/2018/03/Screen-Shot-2018-03-22-at-10.41.48-PM-206x134.png", "Mar 23, 2018 at 09:00")
         ))
-    }
-
-    override fun getCoinTelegraphNewsFeed(): Single<CoinTelegraphFeed> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 }
