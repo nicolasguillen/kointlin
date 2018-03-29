@@ -7,6 +7,7 @@ import com.nicolasguillen.kointlin.BuildConfig
 import com.nicolasguillen.kointlin.services.ApiClient
 import com.nicolasguillen.kointlin.services.ApiRepository
 import com.nicolasguillen.kointlin.services.ApiService
+import com.nicolasguillen.kointlin.services.RssService
 import com.nicolasguillen.kointlin.storage.*
 import com.nicolasguillen.kointlin.storage.dao.WalletDao
 import com.nicolasguillen.kointlin.storage.dao.AppSettingsDao
@@ -18,6 +19,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -32,8 +34,9 @@ open class ApplicationModule(private val application: Application) {
 
     @Provides
     internal open fun provideApiClient(apiService: ApiService,
+                                       rssService: RssService,
                                        gson: Gson): ApiRepository {
-        return ApiClient(apiService, gson)
+        return ApiClient(apiService, rssService, gson)
     }
 
     @Provides
@@ -50,19 +53,26 @@ open class ApplicationModule(private val application: Application) {
     }
 
     @Provides
-    internal fun provideApiRetrofit(gson: Gson,
-                                    okHttpClient: OkHttpClient): Retrofit {
+    internal fun provideApiService(gson: Gson,
+                                   okHttpClient: OkHttpClient): ApiService {
         return Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("https://api.coinmarketcap.com/")
+                .baseUrl("https://api.coinmarketcap.com")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
+                .create(ApiService::class.java)
     }
 
     @Provides
-    internal fun provideApiService(retrofit: Retrofit): ApiService {
-        return retrofit.create(ApiService::class.java)
+    internal fun provideRssiService(okHttpClient: OkHttpClient): RssService {
+        return Retrofit.Builder()
+                .client(okHttpClient)
+                .baseUrl("https://www.coindesk.com")
+                .addConverterFactory(SimpleXmlConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build()
+                .create(RssService::class.java)
     }
 
     @Provides

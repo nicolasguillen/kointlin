@@ -19,4 +19,7 @@ open class UseCaseModule {
     @Provides
     open fun providesSetCurrencyUseCase(appSettingsRepository: AppSettingsRepository): SetCurrencyUseCase = SetCurrencyUseCaseImpl(appSettingsRepository)
 
+    @Provides
+    open fun providesLoadNewsFeedUseCase(apiRepository: ApiRepository): LoadNewsFeedUseCase = LoadNewsFeedUseCaseImpl(apiRepository)
+
 }

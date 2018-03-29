@@ -27,6 +27,10 @@
             android:name=".ui.activities.NewAssetActivity" />
         <activity
             android:name=".ui.activities.SettingsActivity" />
-        <activity android:name=".ui.activities.SetCurrencyActivity" />
+        <activity
+            android:name=".ui.activities.SetCurrencyActivity" />
+        <activity
+            android:name=".ui.activities.NewsFeedActivity" />
+
     </application>
 </manifest>

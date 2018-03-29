@@ -19,3 +19,15 @@ fun Picasso.loadIntoImage(imageView: ImageView, imageId: String){
                 }
             })
 }
+
+fun Picasso.loadUrlIntoImage(imageView: ImageView, urlPath: String){
+    load(urlPath).networkPolicy(NetworkPolicy.OFFLINE)
+            .into(imageView, object: Callback {
+                override fun onSuccess() {}
+
+                override fun onError() {
+                    // Try again online if it failed
+                    load(urlPath).into(imageView)
+                }
+            })
+}

@@ -12,6 +12,10 @@
     <string name="new_asset_save">          Save</string>
 
 
+    <!--NEWS-->
+    <string name="news_title">              Latest News</string>
+
+
     <!--SETTINGS-->
     <string name="settings_title">          Settings</string>
     <string name="settings_currency_title"> Default currency</string>
