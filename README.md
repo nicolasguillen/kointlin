@@ -1,7 +1,7 @@
 # Kointlin [![CircleCI](https://circleci.com/gh/nicolasguillen10/kointlin.svg?style=svg)](https://circleci.com/gh/nicolasguillen10/kointlin) [![codebeat badge](https://codebeat.co/badges/313ec244-49da-425a-812b-e3a9aeee8bed)](https://codebeat.co/projects/github-com-nicolasguillen10-kointlin-master)
 
 <p align="center">
-    <img src="app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" width="200">
+    <img src="app/src/main/ic_launcher-web.png" width="200">
 </p>
 
 Android project written in [Kotlin](https://kotlinlang.org/). A sample application that allows you to control your assets.
