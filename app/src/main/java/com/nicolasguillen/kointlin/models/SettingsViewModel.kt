@@ -1,9 +1,9 @@
 package com.nicolasguillen.kointlin.models
 
-import com.nicolasguillen.kointlin.storage.AppSettingsRepository
+import com.nicolasguillen.kointlin.usecases.SettingsUseCase
+import com.nicolasguillen.kointlin.usecases.SettingsUseCaseResultTypes
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import java.util.*
 
 interface SettingsViewModelInputs {
     fun viewDidLoad()
@@ -12,9 +12,10 @@ interface SettingsViewModelInputs {
 
 interface SettingsViewModelOutputs {
     fun defaultCurrency(): Observable<String>
+    fun appVersion(): Observable<String>
 }
 
-class SettingsViewModel(private val appSettingsRepository: AppSettingsRepository): SettingsViewModelInputs, SettingsViewModelOutputs {
+class SettingsViewModel(private val useCase: SettingsUseCase): SettingsViewModelInputs, SettingsViewModelOutputs {
 
     //INPUTS
     private val viewDidLoad = PublishSubject.create<Unit>()
@@ -23,6 +24,8 @@ class SettingsViewModel(private val appSettingsRepository: AppSettingsRepository
     //OUTPUTS
     private val defaultCurrency = PublishSubject.create<String>()
     override fun defaultCurrency(): Observable<String> = defaultCurrency
+    private val appVersion = PublishSubject.create<String>()
+    override fun appVersion(): Observable<String> = appVersion
 
     val inputs: SettingsViewModelInputs = this
     val outputs: SettingsViewModelOutputs = this
@@ -30,11 +33,18 @@ class SettingsViewModel(private val appSettingsRepository: AppSettingsRepository
     init {
 
         viewDidLoad
-                .switchMapSingle { this.appSettingsRepository.getAppSettings() }
-                .map { Currency.getInstance(it.currencyCode) }
-                .map { "${it.displayName} ${it.currencyCode}" }
-                .subscribe { defaultCurrency.onNext(it) }
+                .switchMapSingle { this.useCase.fetchDefaultCurrency() }
+                .subscribe { when(it) {
+                    is SettingsUseCaseResultTypes.FetchDefaultCurrencyResult.Success ->
+                            defaultCurrency.onNext(it.defaultCurrency)
+                } }
 
+        viewDidLoad
+                .switchMapSingle { this.useCase.fetchAppVersion() }
+                .subscribe { when(it) {
+                    is SettingsUseCaseResultTypes.FetchAppVersionResult.Success ->
+                        appVersion.onNext(it.appVersion)
+                } }
     }
 
     override fun viewDidLoad() = this.viewDidLoad.onNext(Unit)

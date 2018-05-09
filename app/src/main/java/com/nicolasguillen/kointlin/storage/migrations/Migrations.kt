@@ -1,7 +1,7 @@
 package com.nicolasguillen.kointlin.storage.migrations
 
-import android.arch.persistence.db.SupportSQLiteDatabase
-import android.arch.persistence.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
+import androidx.room.migration.Migration
 
 val MIGRATION_5_6: Migration = object : Migration(5, 6) {
     override fun migrate(database: SupportSQLiteDatabase) {

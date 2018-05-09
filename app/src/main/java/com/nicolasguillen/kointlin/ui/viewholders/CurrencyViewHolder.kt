@@ -6,7 +6,6 @@ import com.nicolasguillen.kointlin.R
 import com.nicolasguillen.kointlin.models.SetCurrencyViewModelInputs
 import com.nicolasguillen.kointlin.usecases.DisplayableCurrency
 
-
 class CurrencyViewHolder(view: View,
                          val inputs: SetCurrencyViewModelInputs): BaseViewHolder(view) {
 

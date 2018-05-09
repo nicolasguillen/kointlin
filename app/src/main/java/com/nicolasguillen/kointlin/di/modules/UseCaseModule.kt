@@ -22,4 +22,7 @@ open class UseCaseModule {
     @Provides
     open fun providesLoadNewsFeedUseCase(apiRepository: ApiRepository): LoadNewsFeedUseCase = LoadNewsFeedUseCaseImpl(apiRepository)
 
+    @Provides
+    open fun providesSettingsUseCase(appSettingsRepository: AppSettingsRepository): SettingsUseCase = KointlinSettingsUseCase(appSettingsRepository)
+
 }

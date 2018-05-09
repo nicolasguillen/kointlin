@@ -1,6 +1,6 @@
 package com.nicolasguillen.kointlin.storage
 
-import android.arch.persistence.room.EmptyResultSetException
+import androidx.room.EmptyResultSetException
 import com.nicolasguillen.kointlin.storage.dao.AppSettingsDao
 import com.nicolasguillen.kointlin.storage.dao.WalletDao
 import com.nicolasguillen.kointlin.storage.entities.Asset

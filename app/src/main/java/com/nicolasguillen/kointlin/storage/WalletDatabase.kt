@@ -1,7 +1,7 @@
 package com.nicolasguillen.kointlin.storage
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.RoomDatabase
+import androidx.room.Database
+import androidx.room.RoomDatabase
 import com.nicolasguillen.kointlin.storage.dao.AppSettingsDao
 import com.nicolasguillen.kointlin.storage.dao.WalletDao
 import com.nicolasguillen.kointlin.storage.entities.Asset

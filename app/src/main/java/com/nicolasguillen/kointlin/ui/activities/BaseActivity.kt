@@ -1,7 +1,7 @@
 package com.nicolasguillen.kointlin.ui.activities
 
 import android.annotation.SuppressLint
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.nicolasguillen.kointlin.libs.util.addTo
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable

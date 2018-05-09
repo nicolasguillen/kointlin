@@ -7,7 +7,6 @@ import com.nicolasguillen.kointlin.libs.util.loadUrlIntoImage
 import com.nicolasguillen.kointlin.usecases.DisplayableFeed
 import com.squareup.picasso.Picasso
 
-
 class NewsFeedViewHolder(view: View): BaseViewHolder(view) {
 
     override fun bindData(data: Any) {

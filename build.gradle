@@ -1,6 +1,6 @@
 buildscript {
     ext.buildConfig = [
-            'compileSdk': 27,
+            'compileSdk': 'android-P',
             'minSdk': 21,
             'targetSdk': 27,
 
@@ -15,7 +15,7 @@ buildscript {
     ext.buildConfig.version['code'] = buildConfig.version.major * 1000000 + buildConfig.version.minor * 10000 + buildConfig.version.patch * 100 + buildConfig.version.build
 
     ext.versions = [
-            'kotlin': '1.2.30',
+            'kotlin': '1.2.41',
             'supportLibrary': '27.1.0',
             'atsl': '1.0.1',
             'okhttp': '3.8.0',
@@ -27,7 +27,7 @@ buildscript {
     ext.deps = [
             'kotlin': [
                     'stdlib': [
-                            'jdk': "org.jetbrains.kotlin:kotlin-stdlib-jre7:${versions.kotlin}",
+                            'jdk': "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}",
                     ],
             ],
             'android': [
@@ -46,6 +46,7 @@ buildscript {
                     ],
                     'x': [
                             'coreKtx': "androidx.core:core-ktx:0.2",
+                            'navigationUi': "android.arch.navigation:navigation-ui:1.0.0-alpha01",
                     ],
                     'test': [
                             'runner': "com.android.support.test:runner:${versions.atsl}",
@@ -86,7 +87,8 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.0'
+        classpath 'com.android.tools.build:gradle:3.2.0-alpha14'
+        classpath 'android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0-alpha01'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
     }
 }

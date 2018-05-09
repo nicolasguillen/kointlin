@@ -2,13 +2,14 @@ package com.nicolasguillen.kointlin.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.CollapsingToolbarLayout
-import android.support.design.widget.FloatingActionButton
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.nicolasguillen.kointlin.KointlinApp
 import com.nicolasguillen.kointlin.R
 import com.nicolasguillen.kointlin.libs.ActivityRequestCodes
@@ -41,6 +42,11 @@ class AccountActivity: BaseActivity<AccountViewModel>() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .crashingSubscribe { startAddNewAsset() }
 
+        viewModel.outputs
+                .isLoading()
+                .observeOn(AndroidSchedulers.mainThread())
+                .crashingSubscribe { setRefreshingState(it) }
+
         viewModel.inputs.viewDidLoad()
 
         init()
@@ -63,11 +69,18 @@ class AccountActivity: BaseActivity<AccountViewModel>() {
         startActivityForResult(Intent(this, NewAssetActivity::class.java), ActivityRequestCodes.ADD_NEW_ASSET)
     }
 
+    private fun setRefreshingState(isLoading: Boolean) {
+        findViewById<SwipeRefreshLayout>(R.id.account_refresh_asset_list).isRefreshing = isLoading
+    }
+
     private fun init() {
         setSupportActionBar(findViewById(R.id.account_toolbar))
 
         findViewById<FloatingActionButton>(R.id.account_add_new)
                 .setOnClickListener { viewModel.inputs.didPressAdd() }
+
+        findViewById<SwipeRefreshLayout>(R.id.account_refresh_asset_list)
+                .setOnRefreshListener { viewModel.inputs.viewDidLoad() }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

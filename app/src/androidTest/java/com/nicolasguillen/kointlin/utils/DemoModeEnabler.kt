@@ -1,7 +1,7 @@
 package com.nicolasguillen.kointlin.utils
 
 import android.os.ParcelFileDescriptor
-import android.support.test.InstrumentationRegistry.getInstrumentation
+import androidx.test.InstrumentationRegistry.getInstrumentation
 import java.io.BufferedReader
 import java.io.InputStreamReader
 

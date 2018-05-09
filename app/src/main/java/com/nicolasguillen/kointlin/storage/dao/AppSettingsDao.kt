@@ -1,6 +1,6 @@
 package com.nicolasguillen.kointlin.storage.dao
 
-import android.arch.persistence.room.*
+import androidx.room.*
 import com.nicolasguillen.kointlin.storage.entities.AppSettings
 import io.reactivex.Single
 import org.intellij.lang.annotations.Language

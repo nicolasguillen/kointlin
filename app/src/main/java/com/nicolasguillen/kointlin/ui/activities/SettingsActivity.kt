@@ -5,12 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import com.nicolasguillen.kointlin.KointlinApp
 import com.nicolasguillen.kointlin.R
 import com.nicolasguillen.kointlin.libs.ActivityRequestCodes
 import com.nicolasguillen.kointlin.models.SettingsViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity: BaseActivity<SettingsViewModel>() {
 
@@ -21,18 +21,29 @@ class SettingsActivity: BaseActivity<SettingsViewModel>() {
 
         setContentView(R.layout.activity_settings)
 
+        init()
+
+        viewModel.outputs
+                .appVersion()
+                .observeOn(AndroidSchedulers.mainThread())
+                .crashingSubscribe { this.setAppVersionValue(it) }
+
         viewModel.outputs
                 .defaultCurrency()
                 .observeOn(AndroidSchedulers.mainThread())
                 .crashingSubscribe { this.setCurrencyValue(it) }
 
-        init()
-
         viewModel.inputs.viewDidLoad()
     }
 
+    private fun setAppVersionValue(appVersion: String) {
+        findViewById<TextView>(R.id.settings_app_version)
+                .text = getString(R.string.settings_app_version).format(appVersion)
+    }
+
     private fun setCurrencyValue(currency: String) {
-        settingsCurrencyValueTextView.text = currency
+        findViewById<TextView>(R.id.settings_currency_value)
+                .text = currency
     }
 
     private fun init() {

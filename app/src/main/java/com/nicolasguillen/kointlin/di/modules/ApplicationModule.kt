@@ -1,7 +1,7 @@
 package com.nicolasguillen.kointlin.di.modules
 
 import android.app.Application
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import com.google.gson.Gson
 import com.nicolasguillen.kointlin.BuildConfig
 import com.nicolasguillen.kointlin.services.ApiClient
