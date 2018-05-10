@@ -1,4 +1,4 @@
-# Kointlin [![CircleCI](https://circleci.com/gh/nicolasguillen10/kointlin.svg?style=svg)](https://circleci.com/gh/nicolasguillen10/kointlin) [![codebeat badge](https://codebeat.co/badges/313ec244-49da-425a-812b-e3a9aeee8bed)](https://codebeat.co/projects/github-com-nicolasguillen10-kointlin-master)
+# Kointlin [![CircleCI](https://circleci.com/gh/nicolasguillen/kointlin.svg?style=svg)](https://circleci.com/gh/nicolasguillen/kointlin) [![codebeat badge](https://codebeat.co/badges/6406a91e-12aa-4e98-9ee1-2c482d79e963)](https://codebeat.co/projects/github-com-nicolasguillen-kointlin-master)
 
 <p align="center">
     <img src="app/src/main/ic_launcher-web.png" width="200">
