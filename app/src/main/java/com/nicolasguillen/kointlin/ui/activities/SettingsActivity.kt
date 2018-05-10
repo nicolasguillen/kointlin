@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import com.nicolasguillen.kointlin.KointlinApp
 import com.nicolasguillen.kointlin.R
 import com.nicolasguillen.kointlin.libs.ActivityRequestCodes
@@ -47,7 +48,9 @@ class SettingsActivity: BaseActivity<SettingsViewModel>() {
     }
 
     private fun init() {
-        supportActionBar?.setTitle(R.string.settings_title)
+        val toolbar = findViewById<Toolbar>(R.id.AppBar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = getString(R.string.settings_title)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         findViewById<View>(R.id.settings_currency).setOnClickListener {

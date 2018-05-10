@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+    <dimen name="kointlin_standard_spacing">16dp</dimen>
+    <dimen name="kointlin_small_spacing">8dp</dimen>
+    <dimen name="kointlin_large_spacing">36dp</dimen>
+    <dimen name="kointlin_toolbar_collapsed_height">72dp</dimen>
+    <dimen name="kointlin_toolbar_elevation">4dp</dimen>
+    <dimen name="kointlin_bottom_nav_view_elevation">16dp</dimen>
+    <dimen name="kointlin_bottom_nav_view_height">56dp</dimen>
+</resources>

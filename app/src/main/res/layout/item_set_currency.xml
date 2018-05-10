@@ -3,4 +3,5 @@
     android:id="@+id/item_set_currency_value"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp"/>
+    android:padding="8dp"
+    android:textAppearance="@style/TextAppearance.Kointlin.Body"/>

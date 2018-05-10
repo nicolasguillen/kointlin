@@ -5,40 +5,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.activities.NewAssetActivity">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:layout_above="@+id/new_asset_save"
         android:layout_alignParentTop="true">
 
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/AppBar"
+            style="@style/Widget.Kointlin.Toolbar"
+            tools:ignore="UnusedAttribute"/>
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="8dp">
+            android:layout_height="match_parent">
 
-            <AutoCompleteTextView
-                android:id="@+id/new_asset_input"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/new_asset_hint" />
+                android:orientation="vertical"
+                android:padding="8dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/new_asset_amount_wrapper"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Base.Widget.MaterialComponents.TextInputLayout"
-                android:hint="@string/new_asset_amount">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/new_asset_amount"
+                <AutoCompleteTextView
+                    android:id="@+id/new_asset_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"/>
+                    android:hint="@string/new_asset_hint" />
 
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-    </ScrollView>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/new_asset_amount_wrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Base.Widget.MaterialComponents.TextInputLayout"
+                    android:hint="@string/new_asset_amount">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/new_asset_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/new_asset_save"

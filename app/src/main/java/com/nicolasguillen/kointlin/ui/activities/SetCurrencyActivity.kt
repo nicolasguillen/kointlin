@@ -2,9 +2,10 @@ package com.nicolasguillen.kointlin.ui.activities
 
 import android.app.Activity
 import android.os.Bundle
+import android.view.MenuItem
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import android.view.MenuItem
 import com.nicolasguillen.kointlin.KointlinApp
 import com.nicolasguillen.kointlin.R
 import com.nicolasguillen.kointlin.models.SetCurrencyViewModel
@@ -46,7 +47,9 @@ class SetCurrencyActivity: BaseActivity<SetCurrencyViewModel>() {
     }
 
     private fun init() {
-        supportActionBar?.setTitle(R.string.settings_currency_change)
+        val toolbar = findViewById<Toolbar>(R.id.AppBar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = getString(R.string.settings_currency_change)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 

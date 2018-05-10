@@ -1,14 +1,52 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="Base.Theme.Kointlin" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#ffffff</item>
+        <item name="colorPrimaryDark">#e0e0e0</item>
+        <item name="colorAccent">@color/colorSecondary</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="toolbarStyle">@style/Widget.Kointlin.Toolbar</item>
     </style>
 
-    <style name="AccountTheme" parent="AppTheme">
+    <style name="Theme.Kointlin" parent="@style/Base.Theme.Kointlin">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryLight">@color/colorPrimaryLight</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryLight">@color/colorSecondaryLight</item>
+        <item name="colorSecondaryDark">@color/colorSecondaryDark</item>
+
+        <item name="android:colorBackground">@color/colorBackground</item>
+
+        <item name="kointlinToolbarStyle">@style/Widget.Kointlin.Toolbar</item>
+    </style>
+
+    <style name="AccountTheme" parent="Theme.Kointlin">
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="Widget.Kointlin.Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/kointlin_toolbar_collapsed_height</item>
+        <item name="android:minHeight">@dimen/kointlin_toolbar_collapsed_height</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="titleTextAppearance">@style/TextAppearance.Catalog.Title</item>
+    </style>
+
+    <style name="TextAppearance.Catalog.Title" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/titleTextColor</item>
+    </style>
+
+    <style name="TextAppearance.Kointlin.Logo" parent="Base.TextAppearance.Kointlin.Logo"/>
+    <style name="Base.TextAppearance.Kointlin.Logo" parent="TextAppearance.AppCompat.Display3">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Kointlin.SectionTitle" parent="TextAppearance.AppCompat.Subhead"/>
+    <style name="TextAppearance.Kointlin.Body" parent="TextAppearance.AppCompat.Body1"/>
 </resources>

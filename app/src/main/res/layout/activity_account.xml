@@ -9,7 +9,6 @@
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/main.appbar"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -27,8 +26,7 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/account_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                style="@style/Widget.Kointlin.Toolbar"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:layout_collapseMode="pin" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -44,16 +42,18 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/account_asset_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_wallet" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/account_add_new"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_anchor="@id/main.appbar"
-        app:layout_anchorGravity="bottom|right|end"
+        app:layout_anchor="@id/account_refresh_asset_list"
+        app:layout_anchorGravity="bottom|center"
         android:layout_margin="16dp"
+        style="@style/Widget.MaterialComponents.FloatingActionButton"
         app:fabSize="normal"
         app:srcCompat="@drawable/ic_add" />
 

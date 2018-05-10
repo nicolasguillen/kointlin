@@ -2,9 +2,16 @@
 <resources>
     <color name="ic_launcher_background">#F7B600</color>
 
-    <color name="colorPrimary">#545454</color>
-    <color name="colorPrimaryDark">#444444</color>
-    <color name="colorAccent">#F7B600</color>
+    <color name="colorPrimary">#212121</color>
+    <color name="colorPrimaryLight">#535353</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorSecondary">#F7B600</color>
+    <color name="colorSecondaryLight">#F7C30B</color>
+    <color name="colorSecondaryDark">#F7A300</color>
+
+    <color name="textColorPrimary">#000000</color>
+    <color name="titleTextColor">#FFFFFF</color>
+    <color name="colorBackground">#F0F0F0</color>
 
     <color name="white">#FFFFFF</color>
 </resources>

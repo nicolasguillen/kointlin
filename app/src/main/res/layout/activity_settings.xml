@@ -3,43 +3,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="8dp">
+    android:layout_height="match_parent">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/settings_currency"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/AppBar"
+        style="@style/Widget.Kointlin.Toolbar"
+        tools:ignore="UnusedAttribute"/>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:foreground="?android:attr/selectableItemBackground">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="8dp">
 
-        <RelativeLayout
+        <FrameLayout
+            android:id="@+id/settings_currency"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp">
+            android:background="@color/white"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
 
-            <TextView
-                android:id="@+id/settings_currency_title"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:text="@string/settings_currency_title"/>
+                android:padding="8dp">
 
-            <TextView
-                android:id="@+id/settings_currency_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@id/settings_currency_title"
-                tools:text="US dollar (USD)"/>
+                <TextView
+                    android:id="@+id/settings_currency_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:textAppearance="@style/TextAppearance.Kointlin.SectionTitle"
+                    android:text="@string/settings_currency_title"/>
 
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/settings_currency_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@id/settings_currency_title"
+                    android:textAppearance="@style/TextAppearance.Kointlin.Body"
+                    tools:text="US dollar (USD)"/>
 
-    <TextView
-        android:id="@+id/settings_app_version"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        tools:text="Version 1.0"/>
+            </RelativeLayout>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/settings_app_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textAppearance="@style/TextAppearance.Kointlin.Body"
+            tools:text="Version 1.0"/>
+    </LinearLayout>
 </LinearLayout>

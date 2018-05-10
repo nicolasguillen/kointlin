@@ -2,12 +2,13 @@ package com.nicolasguillen.kointlin.ui.activities
 
 import android.app.Activity
 import android.os.Bundle
-import com.google.android.material.textfield.TextInputEditText
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
+import androidx.appcompat.widget.Toolbar
+import com.google.android.material.textfield.TextInputEditText
 import com.nicolasguillen.kointlin.KointlinApp
 import com.nicolasguillen.kointlin.R
 import com.nicolasguillen.kointlin.models.NewAssetViewModel
@@ -47,6 +48,8 @@ class NewAssetActivity: BaseActivity<NewAssetViewModel>() {
     }
 
     private fun init() {
+        val toolbar = findViewById<Toolbar>(R.id.AppBar)
+        setSupportActionBar(toolbar)
         supportActionBar?.title = "Add new asset"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
