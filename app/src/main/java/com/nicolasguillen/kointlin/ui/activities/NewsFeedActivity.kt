@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.MenuItem
+import androidx.appcompat.widget.Toolbar
 import com.nicolasguillen.kointlin.KointlinApp
 import com.nicolasguillen.kointlin.R
 import com.nicolasguillen.kointlin.models.NewsFeedViewModel
@@ -37,6 +38,8 @@ class NewsFeedActivity: BaseActivity<NewsFeedViewModel>() {
     }
 
     private fun init() {
+        val toolbar = findViewById<Toolbar>(R.id.AppBar)
+        setSupportActionBar(toolbar)
         supportActionBar?.setTitle(R.string.news_title)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }

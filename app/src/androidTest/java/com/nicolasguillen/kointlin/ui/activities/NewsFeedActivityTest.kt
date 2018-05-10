@@ -15,10 +15,10 @@ import org.junit.ClassRule
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import tools.fastlane.screengrab.Screengrab
-import tools.fastlane.screengrab.UiAutomatorScreenshotStrategy
-import tools.fastlane.screengrab.locale.LocaleTestRule
 import android.view.ViewGroup
+import com.nicolasguillen.kointlin.utils.LocaleTestRule
+import com.nicolasguillen.kointlin.utils.Screengrab
+import com.nicolasguillen.kointlin.utils.UiAutomatorScreenshotStrategy
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
@@ -41,7 +41,7 @@ class NewsFeedActivityTest {
         @BeforeClass
         @JvmStatic
         fun beforeAll() {
-            Screengrab.setDefaultScreenshotStrategy(UiAutomatorScreenshotStrategy())
+            Screengrab.defaultScreenshotStrategy = UiAutomatorScreenshotStrategy()
         }
     }
 

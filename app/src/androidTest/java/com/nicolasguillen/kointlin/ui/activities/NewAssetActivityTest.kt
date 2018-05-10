@@ -7,16 +7,12 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import com.nicolasguillen.kointlin.R
-import com.nicolasguillen.kointlin.utils.DemoModeRule
-import com.nicolasguillen.kointlin.utils.waitId
+import com.nicolasguillen.kointlin.utils.*
 import org.junit.BeforeClass
 import org.junit.ClassRule
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import tools.fastlane.screengrab.Screengrab
-import tools.fastlane.screengrab.UiAutomatorScreenshotStrategy
-import tools.fastlane.screengrab.locale.LocaleTestRule
 import java.util.concurrent.TimeUnit
 
 @Suppress("unused")
@@ -36,7 +32,7 @@ class NewAssetActivityTest {
         @BeforeClass
         @JvmStatic
         fun beforeAll() {
-            Screengrab.setDefaultScreenshotStrategy(UiAutomatorScreenshotStrategy())
+            Screengrab.defaultScreenshotStrategy = UiAutomatorScreenshotStrategy()
         }
     }
 

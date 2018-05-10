@@ -9,14 +9,14 @@ import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import com.nicolasguillen.kointlin.R
 import com.nicolasguillen.kointlin.utils.DemoModeRule
+import com.nicolasguillen.kointlin.utils.LocaleTestRule
+import com.nicolasguillen.kointlin.utils.Screengrab
+import com.nicolasguillen.kointlin.utils.UiAutomatorScreenshotStrategy
 import org.junit.BeforeClass
 import org.junit.ClassRule
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import tools.fastlane.screengrab.Screengrab
-import tools.fastlane.screengrab.UiAutomatorScreenshotStrategy
-import tools.fastlane.screengrab.locale.LocaleTestRule
 
 @Suppress("unused")
 @RunWith(AndroidJUnit4::class)
@@ -35,7 +35,7 @@ class AccountActivityTest {
         @BeforeClass
         @JvmStatic
         fun beforeAll() {
-            Screengrab.setDefaultScreenshotStrategy(UiAutomatorScreenshotStrategy())
+            Screengrab.defaultScreenshotStrategy = UiAutomatorScreenshotStrategy()
         }
     }
 
