@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -19,8 +20,6 @@ android {
         testInstrumentationRunner "com.nicolasguillen.kointlin.mocks.MockTestRunner"
 
         vectorDrawables.useSupportLibrary = true
-
-        buildConfigField 'String', 'BUGSNAG_API_KEY', "\"${propOrEmpty('KOINTLIN_BUGSNAG_API_KEY')}\""
 
     }
 
@@ -99,7 +98,7 @@ dependencies {
     implementation deps.okhttp.client
     implementation deps.okhttp.logging
 
-    implementation deps.bugsnag
+    implementation deps.crashlytics
 
     implementation deps.picasso
 
@@ -118,3 +117,5 @@ dependencies {
 
     androidTestImplementation deps.screengrab
 }
+
+apply plugin: 'com.google.gms.google-services'

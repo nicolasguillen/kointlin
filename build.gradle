@@ -16,6 +16,7 @@ buildscript {
 
     ext.versions = [
             'kotlin': '1.2.41',
+            'androidX': '1.0.0-alpha1',
             'supportLibrary': '27.1.0',
             'atsl': '1.0.1',
             'okhttp': '3.8.0',
@@ -32,6 +33,7 @@ buildscript {
             ],
             'android': [
                     'arch': [
+                            'roomCommon': "androidx.room:room-common:${versions.androidX}",
                             'roomRuntime': "android.arch.persistence.room:runtime:${versions.room}",
                             'roomRx': "android.arch.persistence.room:rxjava2:${versions.room}",
                             'compiler': "android.arch.persistence.room:compiler:${versions.room}",
@@ -46,8 +48,8 @@ buildscript {
                     ],
                     'x': [
                             'coreKtx': "androidx.core:core-ktx:0.2",
-                            'navigationUi': "android.arch.navigation:navigation-ui:1.0.0-alpha01",
                     ],
+                    'material': 'com.google.android.material:material:${versions.androidX}',
                     'test': [
                             'runner': "com.android.support.test:runner:${versions.atsl}",
                             'rules': "com.android.support.test:rules:${versions.atsl}",
@@ -73,7 +75,7 @@ buildscript {
                     'runtime': "com.google.dagger:dagger:${versions.dagger}",
                     'compiler': "com.google.dagger:dagger-compiler:${versions.dagger}",
             ],
-            'bugsnag': 'com.bugsnag:bugsnag-android:4.2.2',
+            'crashlytics': 'com.crashlytics.sdk.android:crashlytics:2.9.2',
             'picasso': 'com.squareup.picasso:picasso:2.5.2',
             'junit': 'junit:junit:4.12',
             'mockito': 'org.mockito:mockito-core:1.10.19',
@@ -83,13 +85,14 @@ buildscript {
     repositories {
         google()
         jcenter()
-        mavenCentral()
+        maven { url 'https://maven.fabric.io/public' }
     }
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.0-alpha14'
-        classpath 'android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0-alpha01'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
+        classpath 'io.fabric.tools:gradle:1.25.4'
+        classpath 'com.google.gms:google-services:3.2.1'
     }
 }
 

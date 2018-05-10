@@ -1,12 +1,13 @@
 package com.nicolasguillen.kointlin
 
 import android.app.Application
-import com.bugsnag.android.Bugsnag
+import com.crashlytics.android.Crashlytics
 import com.nicolasguillen.kointlin.di.ApplicationComponent
 import com.nicolasguillen.kointlin.di.DaggerApplicationComponent
 import com.nicolasguillen.kointlin.di.modules.ApplicationModule
 import com.nicolasguillen.kointlin.di.modules.ModelModule
 import com.nicolasguillen.kointlin.di.modules.UseCaseModule
+import io.fabric.sdk.android.Fabric
 
 open class KointlinApp : Application() {
 
@@ -20,13 +21,7 @@ open class KointlinApp : Application() {
         applicationComponent = initApplicationComponent()
 
         if (!BuildConfig.DEBUG) {
-            require(BuildConfig.BUGSNAG_API_KEY.isNotBlank()) {
-                "Bugsnag API key is blank!"
-            }
-
-            val client = Bugsnag.init(this, BuildConfig.BUGSNAG_API_KEY)
-            client.setReleaseStage(BuildConfig.BUILD_TYPE)
-            client.setProjectPackages("com.nicolasguillen.kointlin")
+            Fabric.with(this, Crashlytics())
         }
     }
 
