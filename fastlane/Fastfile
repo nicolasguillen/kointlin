@@ -17,17 +17,37 @@ platform :android do
     )
   end
 
-  lane :release do
+  lane :aab_release do
+    gradle(
+      task: 'bundle',
+      build_type: 'Release'
+    )
+
+    puts "AABs: #{Actions.lane_context[SharedValues::GRADLE_ALL_AAB_OUTPUT_PATHS]}"
+    puts "AAB: #{Actions.lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH]}"
+
+    supply(
+          track: "production",
+          json_key: "app/upload.json",
+          package_name: "com.nicolasguillen.kointlin",
+          skip_upload_metadata: false,
+          skip_upload_images: true,
+          skip_upload_apk: true,
+          skip_upload_aab: false
+        )
+  end
+
+  lane :apk_release do
     gradle(
       task: 'assembleRelease'
     )
 
     supply(
-      track: "beta",
+      track: "production",
       apk: "app/build/outputs/apk/release/app-release.apk",
       json_key: "app/upload.json",
       package_name: "com.nicolasguillen.kointlin",
-      skip_upload_metadata: true,
+      skip_upload_metadata: false,
       skip_upload_images: true
     )
   end
