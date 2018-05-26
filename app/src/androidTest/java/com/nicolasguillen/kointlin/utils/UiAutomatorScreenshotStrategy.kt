@@ -13,7 +13,7 @@ class UiAutomatorScreenshotStrategy : ScreenshotStrategy {
         if (Build.VERSION.SDK_INT < 18) {
             throw RuntimeException("UiAutomatorScreenshotStrategy requires API level >= 18")
         } else {
-            val uiAutomation = InstrumentationRegistry.getInstrumentation().getUiAutomation()
+            val uiAutomation = InstrumentationRegistry.getInstrumentation().uiAutomation
             screenshotCallback.screenshotCaptured(screenshotName, uiAutomation.takeScreenshot())
         }
     }
