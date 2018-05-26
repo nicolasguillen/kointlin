@@ -13,7 +13,7 @@ fun Picasso.loadIntoImage(imageView: ImageView, imageId: String){
             .into(imageView, object: Callback {
                 override fun onSuccess() {}
 
-                override fun onError() {
+                override fun onError(e: Exception) {
                     // Try again online if it failed
                     load(urlPath).into(imageView)
                 }
@@ -25,7 +25,7 @@ fun Picasso.loadUrlIntoImage(imageView: ImageView, urlPath: String){
             .into(imageView, object: Callback {
                 override fun onSuccess() {}
 
-                override fun onError() {
+                override fun onError(e: Exception) {
                     // Try again online if it failed
                     load(urlPath).into(imageView)
                 }

@@ -18,11 +18,10 @@ class NewsFeedViewHolder(view: View): BaseViewHolder(view) {
         val date = view().findViewById<TextView>(R.id.news_feed_date)
         date.text = displayableFeed.coindeskFeed.datetime
 
-        Picasso.with(context()).loadUrlIntoImage(
+        Picasso.get().loadUrlIntoImage(
                 view().findViewById(R.id.news_feed_image),
                 displayableFeed.coindeskFeed.image
         )
 
-//        view().setOnClickListener { inputs.didSelectCurrency(displayableCurrency) }
     }
 }

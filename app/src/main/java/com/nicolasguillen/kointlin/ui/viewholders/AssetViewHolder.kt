@@ -20,8 +20,7 @@ class AssetViewHolder(view: View): BaseViewHolder(view) {
         numberFormat.currency = Currency.getInstance(displayableAsset.currencyCode)
 
         val icon = view().findViewById<ImageView>(R.id.item_asset_icon)
-        Picasso.with(context())
-                .loadIntoImage(icon, displayableAsset.asset.longName)
+        Picasso.get().loadIntoImage(icon, displayableAsset.asset.longName)
 
         val name = view().findViewById<TextView>(R.id.item_asset_name)
         name.text = displayableAsset.asset.longName
