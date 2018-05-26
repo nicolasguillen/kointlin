@@ -7,8 +7,8 @@ buildscript {
             'version': [
                     'major': 0,
                     'minor': 1,
-                    'patch': 4,
-                    'build': 1,
+                    'patch': 6,
+                    'build': 0,
             ],
     ]
     ext.buildConfig.version['name'] = "${buildConfig.version.major}.${buildConfig.version.minor}.${buildConfig.version.patch}"
@@ -17,79 +17,23 @@ buildscript {
     ext.versions = [
             'kotlin': '1.2.41',
             'androidX': '1.0.0-alpha1',
-            'supportLibrary': '27.1.0',
+            'supportLibrary': '27.1.1',
             'atsl': '1.0.1',
             'okhttp': '3.8.0',
             'retrofit': '2.3.0',
-            'dagger': '2.12',
-            'room': '1.0.0',
-    ]
-
-    ext.deps = [
-            'kotlin': [
-                    'stdlib': [
-                            'jdk': "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}",
-                    ],
-            ],
-            'android': [
-                    'arch': [
-                            'roomCommon': "androidx.room:room-common:${versions.androidX}",
-                            'roomRuntime': "android.arch.persistence.room:runtime:${versions.room}",
-                            'roomRx': "android.arch.persistence.room:rxjava2:${versions.room}",
-                            'compiler': "android.arch.persistence.room:compiler:${versions.room}",
-                    ],
-                    'support': [
-                            'annotations': "com.android.support:support-annotations:${versions.supportLibrary}",
-                            'recyclerView': "com.android.support:recyclerview-v7:${versions.supportLibrary}",
-                            'cardView': "com.android.support:cardview-v7:${versions.supportLibrary}",
-                            'appCompat': "com.android.support:appcompat-v7:${versions.supportLibrary}",
-                            'design': "com.android.support:design:${versions.supportLibrary}",
-                            'constraintLayout': 'com.android.support.constraint:constraint-layout:1.1.0-beta5',
-                    ],
-                    'x': [
-                            'coreKtx': "androidx.core:core-ktx:0.2",
-                    ],
-                    'material': 'com.google.android.material:material:${versions.androidX}',
-                    'test': [
-                            'runner': "com.android.support.test:runner:${versions.atsl}",
-                            'rules': "com.android.support.test:rules:${versions.atsl}",
-                    ],
-            ],
-            'okhttp': [
-                    'client': "com.squareup.okhttp3:okhttp:${versions.okhttp}",
-                    'logging': "com.squareup.okhttp3:logging-interceptor:${versions.okhttp}",
-            ],
-            'retrofit': [
-                    'client': "com.squareup.retrofit2:retrofit:${versions.retrofit}",
-                    'adapter': "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}",
-                    'converterGson': "com.squareup.retrofit2:converter-gson:${versions.retrofit}",
-                    'converterXml': "com.squareup.retrofit2:converter-simplexml:${versions.retrofit}",
-            ],
-            'rx': [
-                    'java': 'io.reactivex.rxjava2:rxjava:2.1.0',
-                    'android': 'io.reactivex.rxjava2:rxandroid:2.0.1',
-                    'kotlin': 'io.reactivex.rxjava2:rxkotlin:2.2.0',
-                    'binding': 'com.jakewharton.rxbinding2:rxbinding-kotlin:2.0.0',
-            ],
-            'dagger': [
-                    'runtime': "com.google.dagger:dagger:${versions.dagger}",
-                    'compiler': "com.google.dagger:dagger-compiler:${versions.dagger}",
-            ],
-            'crashlytics': 'com.crashlytics.sdk.android:crashlytics:2.9.2',
-            'picasso': 'com.squareup.picasso:picasso:2.5.2',
-            'junit': 'junit:junit:4.12',
-            'mockito': 'org.mockito:mockito-core:1.10.19',
-            'screengrab': 'tools.fastlane:screengrab:1.1.0',
+            'dagger': '2.15',
+            'room': '1.1.0',
     ]
 
     repositories {
+        mavenCentral()
+        maven { url 'https://maven.fabric.io/public' }
         google()
         jcenter()
-        maven { url 'https://maven.fabric.io/public' }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0-alpha14'
+        classpath 'com.android.tools.build:gradle:3.2.0-alpha15'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath 'io.fabric.tools:gradle:1.25.4'
         classpath 'com.google.gms:google-services:3.2.1'
@@ -98,6 +42,7 @@ buildscript {
 
 allprojects {
     repositories {
+        mavenCentral()
         google()
         jcenter()
     }
