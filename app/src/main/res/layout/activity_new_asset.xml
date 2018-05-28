@@ -27,11 +27,19 @@
                 android:orientation="vertical"
                 android:padding="8dp">
 
-                <AutoCompleteTextView
-                    android:id="@+id/new_asset_input"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/new_asset_hint" />
+                    style="@style/Base.Widget.MaterialComponents.TextInputLayout"
+                    android:hint="@string/new_asset_hint">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/new_asset_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:ignore="LabelFor" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/new_asset_amount_wrapper"

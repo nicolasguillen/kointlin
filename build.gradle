@@ -18,11 +18,11 @@ buildscript {
             'kotlin': '1.2.41',
             'androidX': '1.0.0-alpha1',
             'supportLibrary': '27.1.1',
-            'atsl': '1.0.1',
+            'atsl': '1.1.0-alpha3',
             'okhttp': '3.8.0',
             'retrofit': '2.3.0',
             'dagger': '2.15',
-            'room': '1.1.0',
+            'room': '2.0.0-alpha1',
     ]
 
     repositories {
