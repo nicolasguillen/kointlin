@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import com.jakewharton.rxbinding2.view.clicks
 import com.nicolasguillen.kointlin.KointlinApp
 import com.nicolasguillen.kointlin.R
 import com.nicolasguillen.kointlin.libs.ActivityRequestCodes
@@ -22,7 +23,6 @@ class SettingsActivity: BaseActivity<SettingsViewModel>() {
 
         setContentView(R.layout.activity_settings)
 
-        init()
 
         viewModel.outputs
                 .appVersion()
@@ -34,7 +34,19 @@ class SettingsActivity: BaseActivity<SettingsViewModel>() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .crashingSubscribe { this.setCurrencyValue(it) }
 
+        findViewById<View>(R.id.settings_currency)
+                .clicks()
+                .crashingSubscribe {
+                    startActivityForResult(
+                            Intent(this, SetCurrencyActivity::class.java),
+                            ActivityRequestCodes.SET_CURRENCY
+                    )
+                }
+
+        init()
+
         viewModel.inputs.viewDidLoad()
+
     }
 
     private fun setAppVersionValue(appVersion: String) {
@@ -52,13 +64,6 @@ class SettingsActivity: BaseActivity<SettingsViewModel>() {
         setSupportActionBar(toolbar)
         supportActionBar?.title = getString(R.string.settings_title)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        findViewById<View>(R.id.settings_currency).setOnClickListener {
-            startActivityForResult(
-                    Intent(this, SetCurrencyActivity::class.java),
-                    ActivityRequestCodes.SET_CURRENCY
-            )
-        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

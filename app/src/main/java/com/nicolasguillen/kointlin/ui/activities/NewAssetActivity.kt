@@ -2,13 +2,17 @@ package com.nicolasguillen.kointlin.ui.activities
 
 import android.app.Activity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.MenuItem
 import android.view.View
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.textfield.TextInputEditText
+import com.jakewharton.rxbinding2.view.clicks
+import com.jakewharton.rxbinding2.widget.afterTextChangeEvents
+import com.jakewharton.rxbinding2.widget.itemClickEvents
 import com.nicolasguillen.kointlin.KointlinApp
 import com.nicolasguillen.kointlin.R
 import com.nicolasguillen.kointlin.models.NewAssetViewModel
@@ -41,6 +45,14 @@ class NewAssetActivity: BaseActivity<NewAssetViewModel>() {
                 .observeOn(mainThread())
                 .crashingSubscribe { this.reportOkAndFinish() }
 
+        findViewById<TextInputEditText>(R.id.new_asset_amount)
+                .afterTextChangeEvents()
+                .crashingSubscribe { data -> viewModel.inputs.didEnterAmount(data.editable().toString()) }
+
+        findViewById<View>(R.id.new_asset_save)
+                .clicks()
+                .crashingSubscribe { viewModel.inputs.didPressSave() }
+
         init()
 
         viewModel.inputs.viewDidLoad()
@@ -52,19 +64,13 @@ class NewAssetActivity: BaseActivity<NewAssetViewModel>() {
         setSupportActionBar(toolbar)
         supportActionBar?.title = "Add new asset"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        val save = findViewById<View>(R.id.new_asset_save)
-        save.setOnClickListener { viewModel.inputs.didPressSave() }
-
-        val amountInput = findViewById<TextInputEditText>(R.id.new_asset_amount)
-        amountInput.afterTextChanged { viewModel.inputs.didEnterAmount(it) }
-
     }
 
     private fun setCoinsToAdapter(coins: List<TopCoin>){
         val input = findViewById<AutoCompleteTextView>(R.id.new_asset_input)
         input.setAdapter(ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, coins.map { it.name }))
-        input.setOnItemClickListener { _, view, _, _ -> viewModel.inputs.didSelectCoin((view as TextView).text.toString()) }
+        input.itemClickEvents()
+                .crashingSubscribe { data -> viewModel.inputs.didSelectCoin((data.clickedView() as TextView).text.toString()) }
     }
 
     private fun reportOkAndFinish(){
@@ -78,13 +84,5 @@ class NewAssetActivity: BaseActivity<NewAssetViewModel>() {
             return true
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    private fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
-        this.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun afterTextChanged(editable: Editable?) = afterTextChanged.invoke(editable.toString())
-        })
     }
 }

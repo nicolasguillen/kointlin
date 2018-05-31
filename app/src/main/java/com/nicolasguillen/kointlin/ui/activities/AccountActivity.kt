@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.jakewharton.rxbinding2.view.clicks
 import com.nicolasguillen.kointlin.KointlinApp
 import com.nicolasguillen.kointlin.R
 import com.nicolasguillen.kointlin.libs.ActivityRequestCodes
@@ -47,9 +48,14 @@ class AccountActivity: BaseActivity<AccountViewModel>() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .crashingSubscribe { setRefreshingState(it) }
 
-        viewModel.inputs.viewDidLoad()
+        findViewById<FloatingActionButton>(R.id.account_add_new)
+                .clicks()
+                .crashingSubscribe { viewModel.inputs.didPressAdd() }
 
         init()
+
+        viewModel.inputs.viewDidLoad()
+
     }
 
     private fun showAssets(list: List<DisplayableAsset>) {
@@ -75,9 +81,6 @@ class AccountActivity: BaseActivity<AccountViewModel>() {
 
     private fun init() {
         setSupportActionBar(findViewById(R.id.account_toolbar))
-
-        findViewById<FloatingActionButton>(R.id.account_add_new)
-                .setOnClickListener { viewModel.inputs.didPressAdd() }
 
         findViewById<SwipeRefreshLayout>(R.id.account_refresh_asset_list)
                 .setOnRefreshListener { viewModel.inputs.viewDidLoad() }
