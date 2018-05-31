@@ -7,55 +7,66 @@
 Android project written in [Kotlin](https://kotlinlang.org/). A sample application that allows you to control your assets.
 
 ## Libraries
-* [Android KTX](https://github.com/android/android-ktx)
-* [Room](https://developer.android.com/topic/libraries/architecture/room.html)
+* [Android Jetpack](https://developer.android.com/jetpack/)
+    * [AppCompat](http://developer.android.com/tools/support-library/index.html)
+    * [Android KTX](https://github.com/android/android-ktx)
+    * [JUnit](http://junit.org/junit4/)
+    * [Room](https://developer.android.com/topic/libraries/architecture/room.html)
 * [Retrofit 2](http://square.github.io/retrofit/)
 * [RxJava 2](https://github.com/ReactiveX/RxJava)
 * [RxAndroid](https://github.com/ReactiveX/RxAndroid)
 * [Dagger 2](http://google.github.io/dagger/)
 * [Picasso](http://square.github.io/picasso/)
-* [Google Support Libraries](http://developer.android.com/tools/support-library/index.html)
-
-## Testing Libraries
-* [JUnit](http://junit.org/junit4/)
 * [Mockito](http://mockito.org/)
 
 Deploying
 ------------------------------
-All deploy builds require that the `kointlin.keystore` is present
+### Requirements
 
-### Beta
+#### Keystore
 
- 1. Update the version information in `build.gradle`.
+Release builds will use the debug signing key unless a `kointlin.keystore` file is present. This allows local builds to work without any setup to test things like ProGuard.
 
- 2. Run all tests and generate screenshots using [fastlane](https://fastlane.tools/)
-
-        fastlane screenshot
-
- 3. Install the release APK onto a phone or emulator.
-
-        ./gradlew :app:installRelease
-
- 4. Upload everything to Google Playstore
-
-        fastlane release
-
-### Keystore
-
-Release builds will use the debug signing key unless an upload.keystore file is present. This allows local builds to work without any setup to test things like ProGuard.
-
-When an upload.keystore is present, a keystore password and key password are required. Place the following in `~/.gradle/gradle.properties`:
+When an kointlin.keystore is present, a keystore password and key password are required. Place the following in `~/.gradle/gradle.properties`:
 
 ```
 KOINTLIN_UPLOAD_STORE_PASSWORD=<password>
 KOINTLIN_UPLOAD_KEY_PASSWORD=<password>
 ```
 
-### Publishing
+#### GooglePlay credentials
+Get your `upload.json` from the Google Developer Console
 
-You must have an `upload.json`
+### Steps
 
-## About The Author
+ 1. Update the version information in `build.gradle`.
+
+ 2. Run all tests and generate screenshots using [fastlane](https://fastlane.tools/)
+
+    ```
+    fastlane screenshot
+    ```
+
+ 3. Install the release APK onto a phone or emulator.
+
+    ```
+    ./gradlew :app:installRelease
+    ```
+
+ 4. Upload everything to Google Playstore
+
+    ```
+    fastlane apk_release
+    ```
+    or
+
+    ```
+    fastlane aab_release
+    ```
+
+
+About The Author
+------------------------------
 
 ### Nicolás Guillén
 
@@ -65,7 +76,8 @@ Android Developer
 <a href="https://instagram.com/nic0guillen" target="_blank"><img src="https://github.com/nicolasguillen10/social-icons/blob/master/instagram-icon.png?raw=true" width="60"></a>
 <a href="http://linkedin.com/in/nicolasguillen10"><img src="https://github.com/nicolasguillen10/social-icons/blob/master/linkedin-icon.png?raw=true" width="60"></a>
 
-## License
+License
+------------------------------
 
     Copyright 2017 Nicolás Guillén
 
