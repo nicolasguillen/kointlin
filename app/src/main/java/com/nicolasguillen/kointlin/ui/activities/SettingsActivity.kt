@@ -4,15 +4,13 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
-import android.widget.TextView
-import androidx.appcompat.widget.Toolbar
-import com.jakewharton.rxbinding2.view.clicks
+import com.jakewharton.rxbinding2.view.RxView
 import com.nicolasguillen.kointlin.KointlinApp
 import com.nicolasguillen.kointlin.R
 import com.nicolasguillen.kointlin.libs.ActivityRequestCodes
 import com.nicolasguillen.kointlin.models.SettingsViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity: BaseActivity<SettingsViewModel>() {
 
@@ -34,8 +32,7 @@ class SettingsActivity: BaseActivity<SettingsViewModel>() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .crashingSubscribe { this.setCurrencyValue(it) }
 
-        findViewById<View>(R.id.settings_currency)
-                .clicks()
+        RxView.clicks(settingsCurrency)
                 .crashingSubscribe {
                     startActivityForResult(
                             Intent(this, SetCurrencyActivity::class.java),
@@ -50,18 +47,15 @@ class SettingsActivity: BaseActivity<SettingsViewModel>() {
     }
 
     private fun setAppVersionValue(appVersion: String) {
-        findViewById<TextView>(R.id.settings_app_version)
-                .text = getString(R.string.settings_app_version).format(appVersion)
+        settings_app_version.text = getString(R.string.settings_app_version).format(appVersion)
     }
 
     private fun setCurrencyValue(currency: String) {
-        findViewById<TextView>(R.id.settings_currency_value)
-                .text = currency
+        settings_currency_value.text = currency
     }
 
     private fun init() {
-        val toolbar = findViewById<Toolbar>(R.id.AppBar)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(settingsToolbar)
         supportActionBar?.title = getString(R.string.settings_title)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }

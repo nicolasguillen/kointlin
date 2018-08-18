@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/AppBar"
+        android:id="@+id/settingsToolbar"
         style="@style/Widget.Kointlin.Toolbar"
         tools:ignore="UnusedAttribute"/>
 
@@ -17,7 +17,7 @@
         android:padding="8dp">
 
         <FrameLayout
-            android:id="@+id/settings_currency"
+            android:id="@+id/settingsCurrency"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"

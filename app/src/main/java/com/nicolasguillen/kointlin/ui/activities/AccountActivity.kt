@@ -4,13 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.jakewharton.rxbinding2.view.clicks
+import com.jakewharton.rxbinding2.view.RxView
 import com.nicolasguillen.kointlin.KointlinApp
 import com.nicolasguillen.kointlin.R
 import com.nicolasguillen.kointlin.libs.ActivityRequestCodes
@@ -18,6 +13,7 @@ import com.nicolasguillen.kointlin.models.AccountViewModel
 import com.nicolasguillen.kointlin.ui.adapters.GenericAdapter
 import com.nicolasguillen.kointlin.ui.views.DisplayableAsset
 import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.activity_account.*
 
 class AccountActivity: BaseActivity<AccountViewModel>() {
 
@@ -48,8 +44,7 @@ class AccountActivity: BaseActivity<AccountViewModel>() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .crashingSubscribe { setRefreshingState(it) }
 
-        findViewById<FloatingActionButton>(R.id.account_add_new)
-                .clicks()
+        RxView.clicks(account_add_new)
                 .crashingSubscribe { viewModel.inputs.didPressAdd() }
 
         init()
@@ -59,16 +54,13 @@ class AccountActivity: BaseActivity<AccountViewModel>() {
     }
 
     private fun showAssets(list: List<DisplayableAsset>) {
-        val assetList = findViewById<RecyclerView>(R.id.account_asset_list)
-        assetList.adapter = GenericAdapter(list, R.layout.item_wallet)
-        assetList.layoutManager = LinearLayoutManager(this)
+        accountAssetRecyclerView.adapter = GenericAdapter(list, R.layout.item_wallet)
+        accountAssetRecyclerView.layoutManager = LinearLayoutManager(this)
     }
 
     private fun updateTitle(totalAmount: Double) {
-        findViewById<Toolbar>(R.id.account_toolbar)
-                .title = totalAmount.toString()
-        findViewById<CollapsingToolbarLayout>(R.id.account_collapsing_toolbar)
-                .title = totalAmount.toString()
+        accountToolbar.title = totalAmount.toString()
+        accountCollapsingToolbar.title = totalAmount.toString()
     }
 
     private fun startAddNewAsset() {
@@ -76,14 +68,12 @@ class AccountActivity: BaseActivity<AccountViewModel>() {
     }
 
     private fun setRefreshingState(isLoading: Boolean) {
-        findViewById<SwipeRefreshLayout>(R.id.account_refresh_asset_list).isRefreshing = isLoading
+        accountRefreshLayout.isRefreshing = isLoading
     }
 
     private fun init() {
-        setSupportActionBar(findViewById(R.id.account_toolbar))
-
-        findViewById<SwipeRefreshLayout>(R.id.account_refresh_asset_list)
-                .setOnRefreshListener { viewModel.inputs.viewDidLoad() }
+        setSupportActionBar(accountToolbar)
+        accountRefreshLayout.setOnRefreshListener { viewModel.inputs.viewDidLoad() }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

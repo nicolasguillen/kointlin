@@ -6,12 +6,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/AppBar"
+        android:id="@+id/setCurrencyToolbar"
         style="@style/Widget.Kointlin.Toolbar"
         tools:ignore="UnusedAttribute"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/set_currency_list"
+        android:id="@+id/setCurrencyRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="8dp" />

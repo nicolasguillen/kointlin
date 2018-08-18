@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.activities.NewAssetActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_above="@+id/new_asset_save"
+        android:layout_above="@+id/newAssetSaveButton"
         android:layout_alignParentTop="true">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/AppBar"
+            android:id="@+id/newAssetToolbar"
             style="@style/Widget.Kointlin.Toolbar"
             tools:ignore="UnusedAttribute"/>
 
@@ -33,23 +33,21 @@
                     style="@style/Base.Widget.MaterialComponents.TextInputLayout"
                     android:hint="@string/new_asset_hint">
 
-                    <AutoCompleteTextView
-                        android:id="@+id/new_asset_input"
+                    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                        android:id="@+id/newAssetInput"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        tools:ignore="LabelFor" />
+                        android:layout_height="wrap_content" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/new_asset_amount_wrapper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/Base.Widget.MaterialComponents.TextInputLayout"
                     android:hint="@string/new_asset_amount">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/new_asset_amount"
+                        android:id="@+id/newAssetAmount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="numberDecimal"/>
@@ -57,16 +55,14 @@
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
         </ScrollView>
-
     </LinearLayout>
 
-    <Button
-        android:id="@+id/new_asset_save"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/newAssetSaveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:enabled="false"
-        style="@style/Widget.MaterialComponents.Button"
         android:text="@string/new_asset_save" />
 
 </RelativeLayout>

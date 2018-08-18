@@ -16,7 +16,7 @@ open class BaseActivity<ViewModelType: Any> : AppCompatActivity(){
     @Inject lateinit var viewModel: ViewModelType
 
     protected fun <I> Observable<I>.crashingSubscribe(onNext: (I) -> Unit) {
-        subscribe(onNext, { throw OnErrorNotImplementedException(it) }).addTo(disposables)
+        subscribe(onNext) { throw OnErrorNotImplementedException(it) }.addTo(disposables)
     }
 
     override fun onDestroy() {

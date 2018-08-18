@@ -54,7 +54,7 @@ class NewAssetViewModel(private val useCase: NewAssetUseCase): NewAssetViewModel
                 } }
 
         val newAssetData = PublishSubject.create<NewAssetData>()
-        Observables.combineLatest(allCoins, coinName, amount, { x, y, z -> InputData(x, y, z) })
+        Observables.combineLatest(allCoins, coinName, amount) { x, y, z -> InputData(x, y, z) }
                 .map { data -> NewAssetData(data.allCoins.firstOrNull { it.name == data.coinName }, data.amount) }
                 .subscribe(newAssetData)
 

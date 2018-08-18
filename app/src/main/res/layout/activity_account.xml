@@ -15,7 +15,7 @@
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/account_collapsing_toolbar"
+            android:id="@+id/accountCollapsingToolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
@@ -25,7 +25,7 @@
             app:collapsedTitleGravity="center_horizontal">
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/account_toolbar"
+                android:id="@+id/accountToolbar"
                 style="@style/Widget.Kointlin.Toolbar"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:layout_collapseMode="pin" />
@@ -33,14 +33,14 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/account_refresh_asset_list"
+        android:id="@+id/accountRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="8dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/account_asset_list"
+            android:id="@+id/accountAssetRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/item_wallet" />
@@ -50,7 +50,7 @@
         android:id="@+id/account_add_new"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_anchor="@id/account_refresh_asset_list"
+        app:layout_anchor="@id/accountRefreshLayout"
         app:layout_anchorGravity="bottom|center"
         android:layout_margin="16dp"
         style="@style/Widget.MaterialComponents.FloatingActionButton"

@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="Base.Theme.Kointlin" parent="@style/Theme.AppCompat.Light.NoActionBar">
+    <style name="Base.Theme.Kointlin" parent="@style/Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">#ffffff</item>
         <item name="colorPrimaryDark">#e0e0e0</item>
         <item name="colorAccent">@color/colorSecondary</item>
@@ -10,12 +10,12 @@
 
     <style name="Theme.Kointlin" parent="@style/Base.Theme.Kointlin">
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryLight">@color/colorPrimaryLight</item>
+        <!--<item name="colorPrimaryLight">@color/colorPrimaryLight</item>-->
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 
         <item name="colorSecondary">@color/colorSecondary</item>
-        <item name="colorSecondaryLight">@color/colorSecondaryLight</item>
-        <item name="colorSecondaryDark">@color/colorSecondaryDark</item>
+        <!--<item name="colorSecondaryLight">@color/colorSecondaryLight</item>-->
+        <!--<item name="colorSecondaryDark">@color/colorSecondaryDark</item>-->
 
         <item name="android:colorBackground">@color/colorBackground</item>
 
@@ -26,13 +26,13 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Widget.Kointlin.Toolbar" parent="Widget.AppCompat.Toolbar">
+    <style name="Widget.Kointlin.Toolbar" parent="Widget.MaterialComponents.Toolbar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/kointlin_toolbar_collapsed_height</item>
         <item name="android:minHeight">@dimen/kointlin_toolbar_collapsed_height</item>
         <item name="android:background">?attr/colorPrimary</item>
-        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
-        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Dark.ActionBar</item>
+        <item name="popupTheme">@style/ThemeOverlay.MaterialComponents.Light</item>
         <item name="titleTextAppearance">@style/TextAppearance.Catalog.Title</item>
     </style>
 
