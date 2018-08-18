@@ -1,16 +1,15 @@
 package com.nicolasguillen.kointlin.ui.activities
 
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.MenuItem
-import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.nicolasguillen.kointlin.KointlinApp
 import com.nicolasguillen.kointlin.R
 import com.nicolasguillen.kointlin.models.NewsFeedViewModel
 import com.nicolasguillen.kointlin.ui.adapters.GenericAdapter
 import com.nicolasguillen.kointlin.usecases.DisplayableFeed
 import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.activity_news_feed.*
 
 class NewsFeedActivity: BaseActivity<NewsFeedViewModel>() {
 
@@ -19,7 +18,7 @@ class NewsFeedActivity: BaseActivity<NewsFeedViewModel>() {
 
         KointlinApp.applicationComponent.inject(this)
 
-        setContentView(R.layout.activity_set_currency)
+        setContentView(R.layout.activity_news_feed)
 
         viewModel.outputs
                 .newsFeed()
@@ -32,14 +31,12 @@ class NewsFeedActivity: BaseActivity<NewsFeedViewModel>() {
     }
 
     private fun displayList(list: List<DisplayableFeed>) {
-        val recyclerView = findViewById<RecyclerView>(R.id.set_currency_list)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = GenericAdapter(list, R.layout.item_news_feed)
+        newsFeedRecyclerView.layoutManager = LinearLayoutManager(this)
+        newsFeedRecyclerView.adapter = GenericAdapter(list, R.layout.item_news_feed)
     }
 
     private fun init() {
-        val toolbar = findViewById<Toolbar>(R.id.AppBar)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(newsFeedToolbar)
         supportActionBar?.setTitle(R.string.news_title)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }

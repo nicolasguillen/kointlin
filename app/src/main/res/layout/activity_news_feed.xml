@@ -6,13 +6,13 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/setCurrencyToolbar"
+        android:id="@+id/newsFeedToolbar"
         style="@style/Widget.Kointlin.Toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/setCurrencyRecyclerView"
+        android:id="@+id/newsFeedRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="8dp"
-        tools:listitem="@layout/item_set_currency" />
+        tools:listitem="@layout/item_news_feed" />
 </LinearLayout>
