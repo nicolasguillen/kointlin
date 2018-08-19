@@ -30,17 +30,22 @@ class AssetViewHolder(view: View): BaseViewHolder(view) {
                 .format(displayableAsset.asset.amount.toString(), displayableAsset.asset.shortName)
 
         val change = view().findViewById<TextView>(R.id.item_asset_change)
-        if(displayableAsset.variant > 0) {
-            change.setTextColor(Color.GREEN)
-            change.text = context().getString(R.string.portfolio_change)
-                    .format("▲", numberFormat.format(displayableAsset.variant))
-        } else {
-            change.setTextColor(Color.RED)
-            change.text = context().getString(R.string.portfolio_change)
-                    .format("▼", numberFormat.format(displayableAsset.variant))
-        }
+        val formattedVariant = numberFormat.format(displayableAsset.variant)
+        val isVariantPositive = displayableAsset.variant > 0
+        change.setTextBasedOnVariant(isVariantPositive, formattedVariant)
 
         val total = view().findViewById<TextView>(R.id.item_asset_total)
         total.text = numberFormat.format(displayableAsset.currentPrice)
+    }
+
+    private fun TextView.setTextBasedOnVariant(isPositive: Boolean, variant: String){
+        val arrow: String = if(isPositive){
+            setTextColor(Color.GREEN)
+            "▲"
+        } else {
+            setTextColor(Color.RED)
+            "▼"
+        }
+        text = context().getString(R.string.portfolio_change).format(arrow, variant)
     }
 }
