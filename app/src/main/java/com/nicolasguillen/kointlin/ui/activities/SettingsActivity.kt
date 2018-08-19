@@ -3,7 +3,6 @@ package com.nicolasguillen.kointlin.ui.activities
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
 import com.jakewharton.rxbinding2.view.RxView
 import com.nicolasguillen.kointlin.KointlinApp
 import com.nicolasguillen.kointlin.R
@@ -58,14 +57,6 @@ class SettingsActivity: BaseActivity<SettingsViewModel>() {
         setSupportActionBar(settingsToolbar)
         supportActionBar?.title = getString(R.string.settings_title)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            onBackPressed()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -1,6 +1,7 @@
 package com.nicolasguillen.kointlin.ui.activities
 
 import android.annotation.SuppressLint
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.nicolasguillen.kointlin.libs.util.addTo
 import io.reactivex.Observable
@@ -24,4 +25,13 @@ open class BaseActivity<ViewModelType: Any> : AppCompatActivity(){
         disposables.clear()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }
