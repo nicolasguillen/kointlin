@@ -2,7 +2,6 @@ package com.nicolasguillen.kointlin.ui.activities
 
 import android.app.Activity
 import android.os.Bundle
-import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.jakewharton.rxbinding2.view.RxView.clicks
@@ -71,11 +70,4 @@ class NewAssetActivity: BaseActivity<NewAssetViewModel>() {
         finish()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            onBackPressed()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
 }

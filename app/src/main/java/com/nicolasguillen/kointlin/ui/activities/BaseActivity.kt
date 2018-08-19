@@ -34,4 +34,5 @@ open class BaseActivity<ViewModelType: Any> : AppCompatActivity(){
         }
         return super.onOptionsItemSelected(item)
     }
+
 }

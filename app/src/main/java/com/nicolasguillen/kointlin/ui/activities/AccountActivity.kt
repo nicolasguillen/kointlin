@@ -96,13 +96,10 @@ class AccountActivity: BaseActivity<AccountViewModel>() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId){
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
             R.id.account_settings ->
-                    startActivityForResult(
-                            Intent(this, SettingsActivity::class.java),
-                            ActivityRequestCodes.SETTINGS
-                    )
+                    startActivityForResult(Intent(this, SettingsActivity::class.java), ActivityRequestCodes.SETTINGS)
         }
         return true
     }

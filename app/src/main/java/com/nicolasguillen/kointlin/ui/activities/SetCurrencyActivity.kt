@@ -2,7 +2,6 @@ package com.nicolasguillen.kointlin.ui.activities
 
 import android.app.Activity
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nicolasguillen.kointlin.KointlinApp
 import com.nicolasguillen.kointlin.R
@@ -50,11 +49,4 @@ class SetCurrencyActivity: BaseActivity<SetCurrencyViewModel>() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            onBackPressed()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
 }
