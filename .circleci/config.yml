@@ -8,7 +8,7 @@ jobs:
     working_directory: ~/kointlin
 
     docker:
-      - image: circleci/android:api-27-alpha
+      - image: circleci/android:api-28-alpha
 
     environment:
       TERM: dumb
